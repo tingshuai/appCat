@@ -1,0 +1,173 @@
+<template>
+  <ui-page>
+    <ui-nav-bar slot="nav-bar">
+      <ui-row style="height: 46px;">
+      </ui-row>
+    </ui-nav-bar>
+    <ui-view class="login">
+      <ui-view class="login-header">
+        用户登录
+      </ui-view>
+      <!-- 账号 -->
+      <ui-view class="account-number" style="">
+        <ui-text class="login-label">账户</ui-text>
+        <ui-input class="login-content" placeholder="手机号" type="number" ui:model="{{ account }}"></ui-input>
+      </ui-view>
+      <ui-view class="line {{ getClass(0) }}" ></ui-view>
+      <!-- 密码 -->
+      <ui-view class="account-password">
+        <ui-text class="login-label">密码</ui-text>
+        <ui-input class="login-content" type="password" ui:model="{{ password }}" placeholder="密码输入框"></ui-input>
+      </ui-view>
+      <ui-view class="line {{ getClass(1) }}"></ui-view>
+      <!-- 登录按钮 -->
+      <ui-button class="login-btn" bindtap="login">登陆</ui-button>
+    </ui-view>
+  </ui-page>
+</template>
+
+<script>
+  let app = ui.getApp();
+  export default {
+    config: {
+      navigationStyle: "custom",
+      statusBarColor: 'dark',
+      disableScroll: true,
+    },
+    data() {
+      return {
+        account: '',
+        password: '',
+      }
+    },
+    computed:{
+      rules:function(){//登录验证信息.......
+        return [{
+                value:this.account,
+                fieldName:"account",
+                name:"账号",
+                regExp:'^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$',
+                tip:"请填写正确的手机号。",
+                require:true
+              },
+              {
+                value:this.password,
+                fieldName:"password",
+                name:"密码",
+                regExp:'',
+                tip:"",
+                require:true
+              }]
+      }
+    },
+    watch:{
+
+    },
+    mounted() {
+
+    },
+    methods: {
+      getClass(val){//实时验证.......
+        return this.formValidate( this.rules )[val].isRight == true ? [] : ['error'];
+      },
+      login(e){
+        let that = this;
+        let formVali = this.formValidate( that.rules ).filter((val)=>{
+          return val.isRight == false;
+        });
+        if( formVali.length == 0 ){//验证通过......
+          this.http({
+            url:'/cas/accessToken',
+            params:JSON.stringify({"account":that.account,"password":that.password}),
+            cb:{
+              title:'登录成功',
+              icon:"success",
+              show:true
+            },
+            scb(res){
+              app.globalData.token = res.data.data.accessToken;
+              ui.setStorage({
+                key: "token",
+                data: res.data.data.accessToken
+              })
+              ui.redirectTo({
+                url: '/pages/home'
+              })
+            }
+          })
+        }
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  .login {
+    font-family: PingFang-SC-Bold;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    .login-header {
+      font-size: 72rpx;
+      padding-top: 204rpx;
+      line-height: 1;
+      margin-left: 35rpx;
+      color: #333333;
+      font-weight: Bold;
+    }
+    .error{
+      .mix-1px(0, 0, 1, 0, red)!important;
+    }
+    .account-number,
+    .account-password {
+      display: flex;
+      padding: 0 35rpx;
+      font-size: 36rpx;
+    }
+    .account-number {
+      margin-top: 97rpx;
+    }
+    .account-password {
+      margin-top: 15rpx;
+    }
+    .login-label {
+      flex: 1;
+      text-align: center;
+      line-height: 36px;
+      color: rgba(51, 51, 51, 1);
+    }
+    .login-content {
+      flex: 5;
+    }
+    .ui-input {
+      border: none;
+    }
+    .line {
+      .mix-1px(0, 0, 1, 0, #E5E5E5);
+      margin: 0 35rpx;
+    }
+    .login-btn {
+      border-radius: 10px;
+      width: 680rpx;
+      height: 88rpx;
+      font-size: 36rpx;
+      line-height: 88rpx;
+      color: white;
+      background-image: linear-gradient(to top, rgba(255, 90, 0, 1), rgba(255, 152, 90, 1));
+      display: block;
+      margin: 80rpx auto 0;
+    }
+    .login-bottom {
+      color: #FF5D05;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      margin: 42rpx 0;
+      width: 100%;
+    }
+    .retrieve-password {
+      margin-right: 52rpx;
+    }
+  }
+</style>

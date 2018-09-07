@@ -1,0 +1,15 @@
+{
+    "touchui.deving": false,
+    "touchui.builded": true,
+    "touchui.enable": true,
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "*.ui": "vue"
+    },
+    "vetur.extensions": [
+        ".ui"
+    ],
+    "editor.fontSize": 16
+}

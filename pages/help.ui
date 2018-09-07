@@ -1,0 +1,33 @@
+<template>
+    <ui-view class="help"> 
+
+    </ui-view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: 'xx',
+    disableScroll:true
+  },
+  data () {
+    return {
+     
+    }
+  },
+  methods: {
+    buttonHandle () {
+
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+.help{
+   position: fixed;
+   top: 0;
+   bottom: 57px;
+}
+</style>

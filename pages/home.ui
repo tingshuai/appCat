@@ -1,0 +1,197 @@
+<template>
+  <ui-page>
+    <!-- 自定义导航栏 -->
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+      <ui-row style="height: 46px;background-color: white;">
+        <ui-col vertical-align="middle" align="center">
+          <ui-view class="home-header">
+            <ui-view class="search">
+              <ui-icon type="search" size="16" color="#999999"></ui-icon>
+              <ui-view class="login-content">搜索应用/参数/产品名称</ui-view>
+            </ui-view>
+            <ui-icon type="add" size="18" color="#333333" bindtap="login"></ui-icon>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <!-- 轮播 -->
+    <ui-view class="my-swiper my-swiper-og">
+      <ui-swiper class="two_swiper" autoplay circular>
+        <ui-swiper-item ui:for="{{items}}" ui:for-item="item">
+          <ui-image src="{{ item.src }}"></ui-image>
+          <ui-text class="slide-title">{{ item.title }}</ui-text>
+        </ui-swiper-item>
+      </ui-swiper>
+    </ui-view>
+    <!-- 栏目 -->
+    <ui-view class="home-list">
+      <ui-row>
+        <ui-col>
+          <ui-view class="column-content-l" bindtap="saosao">
+            <ui-image src="{{require('../images/meinv.jpg')}}"></ui-image>
+            <ui-view class="item-text">扫一扫</ui-view>
+          </ui-view>
+        </ui-col>
+        <ui-col>
+          <ui-view class="column-content-r">
+            <ui-image src="{{img}}"></ui-image>
+            <ui-view class="item-text">扫一扫</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row>
+        <ui-col>
+          <ui-view class="column-content-l mar-top">
+            <ui-image src="{{img}}"></ui-image>
+            <ui-view class="item-text">扫一扫</ui-view>
+          </ui-view>
+        </ui-col>
+        <ui-col>
+          <ui-view class="column-content-r mar-top">
+            <ui-image src="{{img}}"></ui-image>
+            <ui-view class="item-text">扫一扫</ui-view>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+  </ui-page>
+</template>
+
+<script>
+  export default {
+    config: {
+      navigationStyle: "custom",
+      disableScroll: true,
+      statusBarColor: 'dark'
+    },
+    data() {
+      return {
+        buttonText: '界面跳转',
+        isShow: false,
+        img: require('../images/meinv.jpg'),
+        items: [{
+            src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+            title: '放肆玩乐，轻巧办公'
+          },
+          {
+            src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+            title: '高温保护，一路驰骋'
+          },
+          {
+            src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+            title: '七夕好货，独家礼赠'
+          }
+        ],
+      }
+    },
+    methods: {
+      login() {
+        ui.navigateTo({
+          url: '/pages/login'
+        })
+      },
+      saosao() {
+        ui.scanCode({
+          success: (res) => {
+            console.log(res)
+          }
+        })
+      }
+    },
+    mounted() {
+      //首屏页面需要在mounted中延时才能调用框架api，其他页面不需要延时
+      setTimeout(() => {
+        //关闭app启动图
+        ui.closeSplashscreen()
+      }, 1000);
+    }
+  }
+</script>
+
+<style lang="less">
+  .home-header {
+    padding: 0px 32rpx 0;
+    height: 36px;
+    line-height: 36px;
+    .search {
+      width: 620rpx;
+      float: left;
+      box-sizing: border-box;
+      border-radius: 20px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    .ui-icon {
+      float: left;
+      width: 65rpx;
+      text-align: right;
+      font-weight: bold;
+    }
+    .login-content {
+      float: left;
+      width: 550rpx;
+      color: #999999;
+      text-align: left;
+      text-indent: 1em;
+      font-size: 32rpx;
+    }
+    .ui-input {
+      border: none; // padding: 0;
+    }
+  }
+
+  .my-swiper {
+    margin-top: 57rpx;
+    .two_swiper {
+      .ui-swiper-indicator {
+        bottom: 20px;
+      }
+      .slide-title {
+        color: #fff;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+        background-color: rgba(51, 51, 51, .2);
+      }
+    }
+  }
+  .home-list {
+    padding: 100rpx 167rpx 0;
+    .ui-image-container {
+      width: 128rpx;
+      height: 128rpx;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: middle;
+      .ui-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .column-content-r {
+      text-align: right;
+    }
+    .column-content-l {
+      text-align: left;
+    }
+    .item-text {
+      width: 128rpx;
+      text-align: center;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 30rpx;
+      color: #666666;
+      margin-top: 23rpx;
+    }
+    .mar-top {
+      padding-top: 87rpx;
+    }
+    .mar-left {
+      padding-left: 160rpx;
+    }
+  }
+</style>

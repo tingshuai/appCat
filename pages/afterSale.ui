@@ -1,0 +1,30 @@
+<!--navBar2.ui-->
+<template>
+  <ui-page>
+  </ui-page>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "右侧自定义一个图标",
+    navigationBarTextStyle:"black"
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+ 
+  },
+  mounted () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+
+</style>
