@@ -1,0 +1,60 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <form-list form-list="{{ formList }}"></form-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/nav-bar'
+import formList from '#/component/form-list'
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  components:{
+    navBar,
+    formList
+  },
+  data() {
+    return {
+      title:"设备信息",
+      nextPage:"/pages/collectType",
+      formList:[
+        {
+          lebal:"设备编号",
+          name:"a1",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"设备型号",
+          name:"a2",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"设备名称",
+          name:"a4",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"生产厂家",
+          name:"a5",
+          value:"",
+          index:1,
+          type:"picker",
+          list:["中国","巴西","俄罗斯"]
+        }
+      ]
+    }
+  },
+  methods: {},
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+
+</style>

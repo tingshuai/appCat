@@ -90,6 +90,9 @@
         })
       },
       saosao() {
+        ui.navigateTo({
+          url:'/pages/mcatMsg'
+        })
         ui.scanCode({
           success: (res) => {
             console.log(res)

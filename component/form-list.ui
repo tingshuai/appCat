@@ -1,0 +1,43 @@
+<!--undefined-->
+<template>
+    <ui-row-list>
+      <ui-row height="50" border-indent ui:for="{{ formList }}">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            {{ item.lebal }}
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" ui:if="{{ item.type == 'input' }}">
+          <ui-view class="">
+            <ui-input placeholder="" type="text" style="border:none;"></ui-input>
+          </ui-view>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" ui:if="{{ item.type == 'picker' }}">
+          <ui-view class="">
+            <ui-picker title="" mode="selector" value="{{ item.index }}" data-item="{{ item }}" range="{{ item.list }}" bindchange="handleChange()"></ui-picker>
+          </ui-view>
+        </ui-col>
+      </ui-row>  
+    </ui-row-list>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  props:["formList"],
+  data() {
+    return {}
+  },
+  methods: {
+    handleChange (e,val) {
+      debugger;
+      // this.value = val
+    }
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+
+</style>

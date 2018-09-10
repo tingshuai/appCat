@@ -6,7 +6,12 @@ export default {
       "pages/home",
       "pages/login",
       "pages/input",
-      "component/form"
+      "component/form",
+      "pages/mcatMsg",
+      "component/nav-bar",
+      "pages/EquipmentInfor",
+      "component/form-list",
+      "pages/collectType"
     ],
     "theme": {
       "theme-color": "#FF5D05"

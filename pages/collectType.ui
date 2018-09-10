@@ -1,0 +1,72 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-row-list>
+      <ui-row height="50">
+        <ui-col width="40" vertical-align="middle" align="center">
+            <ui-image src="./static/img/collect@2x.png"></ui-image>
+        </ui-col>
+        <ui-col class="text" >
+          飞行模式
+        </ui-col>
+        <ui-col width="40" vertical-align="middle">
+          <ui-icon name="arrow-right"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/nav-bar'
+import formList from '#/component/form-list'
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  components:{
+    navBar,
+    formList
+  },
+  data() {
+    return {
+      title:"设备信息",
+      nextPage:"/pages/EquipmentInfor",
+      formList:[
+        {
+          lebal:"设备编号",
+          name:"a1",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"设备型号",
+          name:"a2",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"设备名称",
+          name:"a4",
+          value:"",
+          type:"input"
+        },
+        {
+          lebal:"生产厂家",
+          name:"a5",
+          value:"",
+          index:1,
+          type:"picker",
+          list:["中国","巴西","俄罗斯"]
+        }
+      ]
+    }
+  },
+  methods: {},
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+
+</style>
