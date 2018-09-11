@@ -7,31 +7,55 @@
           <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
       </ui-col>
     </ui-row>
-    <ui-row-list>
-      <ui-row height="50" border-indent>
+    <ui-row-list border-indent>
+      <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
-            M-CAT编号
+            硬件版本
         </ui-col>
         <ui-col class="text" vertical-align="middle">
-          F00001
+          {{ mCatMsg.hardwareVersion }}
         </ui-col>
       </ui-row>
-      <ui-row height="50" border-indent>
+      <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
-            M-CAT星号
+            模组编号
         </ui-col>
         <ui-col class="text" vertical-align="middle">
-          F000014444
+          {{ mCatMsg.moduleNo }}
         </ui-col>
       </ui-row>      
-      <ui-row height="50" border-indent>
+      <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
-            支持借口配件
+            生产批次
         </ui-col>
         <ui-col class="text" vertical-align="middle">
-          F00001/f2333
+          {{ mCatMsg.productionBatch }}
         </ui-col>
-      </ui-row>      
+      </ui-row>    
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            软件版本
+        </ui-col>
+        <ui-col class="text" vertical-align="middle">
+          {{ mCatMsg.softwareVersion }}
+        </ui-col>
+      </ui-row> 
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备型号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle">
+          {{ mCatMsg.unitType }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            日期
+        </ui-col>
+        <ui-col class="text" vertical-align="middle">
+          {{ mCatMsg.year }}年{{ mCatMsg.month }}月
+        </ui-col>
+      </ui-row>                    
     </ui-row-list>
   </ui-page>
 </template>
@@ -48,11 +72,14 @@ export default {
   data(){
     return {
       title:"M-CAT信息",
-      nextPage:"/pages/EquipmentInfor"
+      nextPage:"/pages/EquipmentInfor",
+      mCatMsg:{}
     }
   },
   methods: {},
-  mounted() {}
+  mounted() {
+    this.mCatMsg = JSON.parse( this._routerRoot._route.query.mCatMsg );
+  }
 }
 </script>
 

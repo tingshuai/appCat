@@ -1,0 +1,82 @@
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-view class="sample_content">
+      <ui-progress percent="70" show-info active stroke-width="18" active-color="#ff4949"></ui-progress>
+    </ui-view>
+    <ui-row-list>
+      <ui-row height="60" space-top="15">
+        <ui-col width="80" vertical-align="top" align="right">
+            <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
+        </ui-col>
+        <ui-col class="text" space-left="25">
+          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
+          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-row height="60" space-top="15">
+        <ui-col width="80" vertical-align="top" align="right">
+            <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
+        </ui-col>
+        <ui-col class="text" space-left="25">
+          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
+          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
+        </ui-col>
+      </ui-row>   
+      <ui-row height="60" space-top="15">
+        <ui-col width="80" vertical-align="top" align="right">
+            <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
+        </ui-col>
+        <ui-col class="text" space-left="25">
+          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
+          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
+        </ui-col>
+      </ui-row>
+      <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);padding-left:50px;">参数正常，解析成功.</ui-text>   
+      <btn text="确认" btn-parent-style="{{ btnParentStyle }}"></btn>
+    </ui-row-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/nav-bar'
+import formList from '#/component/form-list'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  components:{
+    navBar,
+    formList,
+    btn
+  },
+  data() {
+    return {
+      title:"解析",
+      nextPage:"",
+      btnParentStyle:`margin-top:"30px;"`
+    }
+  },
+  methods: {
+    handleChange(){
+
+    }
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+  .sample_content{
+    font-size: 36rpx;
+    font-family: PingFang-SC-Bold;
+    color: rgba(51,51,51,1);
+    padding: 10px;
+    .price{
+      font-weight: bold;
+    }
+  }
+  .ui-row-list > .ui-row:not(:last-child):after{
+    display: none;
+  }
+</style>

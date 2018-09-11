@@ -2,34 +2,62 @@
 <template>
   <ui-page>
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
-    <form-list form-list="{{ formList }}"></form-list>
+    <ui-row-list>
+      <ui-row height="50" border-indent ui:for="{{ formList }}" ui:if="{{ item.type == 'input' }}">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            {{ item.lebal }}
+        </ui-col>
+        <ui-col class="text" vertical-align="middle">
+          <ui-view class="">
+            <ui-input placeholder="" type="text" style="border:none;"></ui-input>
+          </ui-view>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50" border-indent ui:elif="{{ item.type == 'date' }}" data-item="{{ item }}" bindtap="selectMyDate">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            {{ item.lebal }}
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="5">
+          <ui-view class="">
+            {{ item.value }}
+          </ui-view>
+        </ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>      
+    </ui-row-list>
+    <sel-date show-date="{{ showDate }}" bindoncdate="cDate"></sel-date>
   </ui-page>
 </template>
 <script>
 import navBar from '#/component/nav-bar'
 import formList from '#/component/form-list'
+import selDate from '#/component/selDate'
 export default {
   config: {
     navigationBarTitleText: "undefined"
   },
   components:{
     navBar,
-    formList
+    formList,
+    selDate
   },
   data() {
     return {
       title:"设备信息",
       nextPage:"/pages/collectType",
+      showDate:false,
       formList:[
         {
-          lebal:"设备编号",
-          name:"a1",
+          lebal:"品牌",
+          name:"manufactory",
           value:"",
           type:"input"
         },
         {
-          lebal:"设备型号",
-          name:"a2",
+          lebal:"模型名称",
+          name:"modelName",
           value:"",
           type:"input"
         },
@@ -40,17 +68,37 @@ export default {
           type:"input"
         },
         {
-          lebal:"生产厂家",
-          name:"a5",
+          lebal:"出厂日期",
+          name:"produceDate",
+          value:`2015-5-5`,
+          type:"date",
+        },
+        {
+          lebal:"型号",
+          name:"spec",
           value:"",
-          index:1,
-          type:"picker",
-          list:["中国","巴西","俄罗斯"]
-        }
+          type:"input",
+        },
+        {
+          lebal:"用户ID",
+          name:"userId",
+          value:"",
+          type:"input",
+        }        
       ]
     }
   },
-  methods: {},
+  methods: {
+    handleChange(){
+
+    },
+    selectMyDate(e){
+      this.showDate = true;
+    },
+    cDate(e,date){
+      debugger;
+    }
+  },
   mounted() {}
 }
 </script>

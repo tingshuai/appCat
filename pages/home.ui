@@ -90,8 +90,9 @@
         })
       },
       saosao() {
+        let _mCatMsg = JSON.stringify({"hardwareVersion":"0X04","moduleNo":"12312312","month":"9","phoneNo":"21312312","productionBatch":"12312312","softwareVersion":"0X4","unitType":"5","year":"2016"})
         ui.navigateTo({
-          url:'/pages/mcatMsg'
+          url:`/pages/mcatMsg?mCatMsg=${_mCatMsg}`
         })
         ui.scanCode({
           success: (res) => {

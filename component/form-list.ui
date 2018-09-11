@@ -15,6 +15,11 @@
             <ui-picker title="" mode="selector" value="{{ item.index }}" data-item="{{ item }}" range="{{ item.list }}" bindchange="handleChange()"></ui-picker>
           </ui-view>
         </ui-col>
+        <ui-col class="text" vertical-align="middle" ui:if="{{ item.type == 'date' }}">
+          <ui-view class="">
+            <ui-picker title="" mode="selector" data-item="{{ item }}" bindchange="handleChange"></ui-picker>
+          </ui-view>
+        </ui-col>        
       </ui-row>  
     </ui-row-list>
 </template>

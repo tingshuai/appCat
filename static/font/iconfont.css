@@ -15,6 +15,8 @@
 .icon-search:before { content: "\e64c"; }
 
 .icon-add:before { content: "\e62a"; }
+.icon-myWx-cuo:before { content: "\e664"; }
+
 .icon-myWx-qianjin:before { content: "\e652"; }
 
 .icon-myWx-47:before { content: "\e63f"; }
@@ -105,6 +107,8 @@
 
 .icon-myWx-qianjin1:before { content: "\e626"; }
 
+.icon-myWx-guanbi2:before { content: "\e671"; }
+
 .icon-myWx-qunzhu:before { content: "\e708"; }
 
 .icon-myWx-woshifangzhu:before { content: "\e61b"; }
@@ -113,15 +117,23 @@
 
 .icon-myWx-pingjiahao:before { content: "\e675"; }
 
+.icon-myWx-cuo1:before { content: "\e7cd"; }
+
 .icon-myWx-fasong:before { content: "\e634"; }
 
 .icon-myWx-fasong1:before { content: "\e657"; }
+
+.icon-myWx-dengpao:before { content: "\e665"; }
+
+.icon-myWx-gantanhao:before { content: "\e6f3"; }
 
 .icon-myWx-qianjin2:before { content: "\e623"; }
 
 .icon-myWx-houtui1:before { content: "\e60a"; }
 
 .icon-myWx-liaotian1:before { content: "\e65f"; }
+
+.icon-myWx-cuo2:before { content: "\e666"; }
 
 .icon-myWx-pdf1:before { content: "\e604"; }
 
@@ -207,6 +219,8 @@
 
 .icon-myWx-xiangzuo1:before { content: "\e62b"; }
 
+.icon-myWx-dui:before { content: "\e667"; }
+
 .icon-myWx-yuyintonghua1:before { content: "\e635"; }
 
 .icon-myWx-bianji:before { content: "\e654"; }
@@ -269,6 +283,8 @@
 
 .icon-myWx-jianpan3:before { content: "\e612"; }
 
+.icon-myWx-dui1:before { content: "\e66b"; }
+
 .icon-myWx-banjie3:before { content: "\e633"; }
 
 .icon-myWx-yuyinshuru:before { content: "\e650"; }
@@ -283,6 +299,10 @@
 
 .icon-myWx-juhua:before { content: "\e7cc"; }
 
+.icon-myWx-dui2:before { content: "\e668"; }
+
+.icon-myWx-gantanhao1:before { content: "\e66a"; }
+
 .icon-myWx-qunzhu1:before { content: "\e7b2"; }
 
 .icon-myWx-fenxiang-copy:before { content: "\e659"; }
@@ -290,6 +310,8 @@
 .icon-myWx-houtui4:before { content: "\e66f"; }
 
 .icon-myWx-volume-1:before { content: "\e617"; }
+
+.icon-myWx-cuo3:before { content: "\e66c"; }
 
 .icon-myWx-banjie4:before { content: "\e655"; }
 
@@ -308,4 +330,12 @@
 .icon-myWx-zhuanrangqunzhu-gouxuan:before { content: "\e6b3"; }
 
 .icon-myWx-zhong2:before { content: "\e8ef"; }
+
+.icon-myWx-cuo4:before { content: "\e66d"; }
+
+.icon-myWx-gantanhao2:before { content: "\e66e"; }
+
+.icon-myWx-dui3:before { content: "\e672"; }
+
+.icon-myWx-gantanhao4:before { content: "\e676"; }
 

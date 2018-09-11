@@ -1,0 +1,40 @@
+<!--undefined-->
+<template>
+  <ui-popup ui:model="{{showDate}}">
+      <ui-v-calendar ui:if="{{showDate}}" value="{{ date }}" bindchange="selectedChange"></ui-v-calendar>
+  </ui-popup>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: ""
+  },
+  data() {
+    return {
+      date:""
+    }
+  },
+  props:["showDate"],
+  methods: {
+    selectedChange (e) {
+      this.date = e;
+      setTimeout(() => {
+        this.showDate = false
+        ui.emit('oncdate',e);
+        debugger;
+      }, 200)
+    }  
+  },
+  computed:{
+    show:function(){
+      return this.showDate
+    }
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+
+</style>
