@@ -60,7 +60,7 @@
   </ui-page>
 </template>
 <script>
-import navBar from '#/component/nav-bar'
+import navBar from '#/component/navBar'
 export default {
   config: {
     navigationBarTitleText: "M-CAT信息",

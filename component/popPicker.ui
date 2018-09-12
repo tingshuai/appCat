@@ -1,0 +1,47 @@
+<!--undefined-->
+<template>
+  <ui-popup ui:model="{{ show }}" bindhide="hidePop">
+      <ui-row>
+        <ui-col align="right" space-right="10">
+            <ui-button type="primary" size="mini" style="flot:right;" bindtap="confirm">确定</ui-button>
+        </ui-col>
+      </ui-row>
+      <ui-picker-view ui:if="{{ show }}" range="{{ listData }}" value="{{ value }}" bindchange="handleChange"></ui-picker-view>
+  </ui-popup>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  props:["isShow","listData"],
+  data() {
+    return {
+      value:0
+    }
+  },
+  methods: {
+    handleChange(e){
+     return this.value = e;
+    },
+    confirm(){
+      this.$emit( "returnvalue",this.value );
+      return this.$emit( "hidepop" );
+    },
+    hidePop(){
+      return this.$emit( "hidepop" );
+    }
+  },
+  computed:{
+    show:function(){
+      return this.isShow;
+    }
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+
+</style>

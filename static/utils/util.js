@@ -35,5 +35,11 @@ function http(obj){
 }
 module.exports = {
   formatTime: formatTime,
-  formatLocation: formatLocation
+  formatLocation: formatLocation,
+  http_url:{
+    cas:'/cas/',
+    displays:"/app/displays/",
+    models:"/app/models/",
+    equipments:"/app/equipments/"
+  }
 }

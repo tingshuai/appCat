@@ -4,12 +4,12 @@
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <ui-row-list>
       <ui-row height="50" border-indent ui:for="{{ formList }}" ui:if="{{ item.type == 'input' }}">
-        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+        <ui-col width="70" vertical-align="middle" align="left" space-left="10">
             {{ item.lebal }}
         </ui-col>
-        <ui-col class="text" vertical-align="middle">
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
           <ui-view class="">
-            <ui-input placeholder="" type="text" style="border:none;"></ui-input>
+            <ui-input placeholder="" ui:model="{{ item.value }}" type="text" style="border:none;text-align:right;"></ui-input>
           </ui-view>
         </ui-col>
       </ui-row>
@@ -25,15 +25,21 @@
         <ui-col width="30" class="text" vertical-align="middle">
           <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
         </ui-col>
-      </ui-row>      
+      </ui-row>
     </ui-row-list>
-    <sel-date show-date="{{ showDate }}" bindoncdate="cDate"></sel-date>
+    <!-- <sel-date show-date="{{ showDate }}" bindoncdate="cDate"></sel-date> -->
+    <ui-popup ui:model="{{pop.show}}">
+        <ui-v-calendar ui:if="{{pop.show}}" value="{{ pop.value }}" bindchange="selectedChange"></ui-v-calendar>
+    </ui-popup>
+    <btn text="确认" bindontouch="submit"></btn>
   </ui-page>
 </template>
 <script>
-import navBar from '#/component/nav-bar'
-import formList from '#/component/form-list'
-import selDate from '#/component/selDate'
+import navBar from '#/component/navBar'
+import formList from '#/component/formList'
+import btn from '#/component/btn'
+// import selDate from '#/component/selDate'
+let _globalData = ui.getApp().globalData;
 export default {
   config: {
     navigationBarTitleText: "undefined"
@@ -41,13 +47,17 @@ export default {
   components:{
     navBar,
     formList,
-    selDate
+    btn
   },
   data() {
     return {
       title:"设备信息",
-      nextPage:"/pages/collectType",
+      nextPage:"/pages/ConnectionMode",
       showDate:false,
+      pop:{
+        show:false,
+        value:""
+      },
       formList:[
         {
           lebal:"品牌",
@@ -58,12 +68,6 @@ export default {
         {
           lebal:"模型名称",
           name:"modelName",
-          value:"",
-          type:"input"
-        },
-        {
-          lebal:"设备名称",
-          name:"a4",
           value:"",
           type:"input"
         },
@@ -88,15 +92,87 @@ export default {
       ]
     }
   },
+  computed:{
+    rules:function(){//登录验证信息.......
+      return [{
+              value:this.formList[0].value,
+              fieldName:this.formList[0].name,
+              name:this.formList[0].lebal,
+              regExp:'',
+              tip:"",
+              require:true
+            },
+            {
+              value:this.formList[1].value,
+              fieldName:this.formList[1].name,
+              name:this.formList[1].lebal,
+              regExp:'',
+              tip:"",
+              require:true
+            },
+            {
+              value:this.formList[2].value,
+              fieldName:this.formList[2].name,
+              name:this.formList[2].lebal,
+              regExp:'',
+              tip:"",
+              require:true
+            },
+            {
+              value:this.formList[3].value,
+              fieldName:this.formList[3].name,
+              name:this.formList[3].lebal,
+              regExp:'',
+              tip:"",
+              require:true
+            },
+            {
+              value:this.formList[4].value,
+              fieldName:this.formList[4].name,
+              name:this.formList[4].lebal,
+              regExp:'',
+              tip:"",
+              require:true
+            }]
+    }
+  },  
   methods: {
     handleChange(){
 
     },
     selectMyDate(e){
-      this.showDate = true;
+      this.pop.show = true;
     },
+    selectedChange (e) {
+      this.formList[2].value = e;
+      this.pop.show = false;
+    },   
     cDate(e,date){
       debugger;
+    },
+    submit(e){
+        let that = this;
+        let formVali = this.formValidate( that.rules ).filter((val)=>{
+          return val.isRight == false;
+        });
+        if( formVali.length == 0 ){//验证通过......
+          let _param = {};
+          this.formList.forEach((val,i,arr)=>{
+            _param[val.name] = val.value;
+          })
+          this.http({
+            url:`${_globalData.http_url.models}check`,
+            params:JSON.stringify(_param),
+            cb:{
+              title:'',
+              icon:"success",
+              show:false
+            },
+            scb(res){
+              debugger;
+            }
+          })
+        }
     }
   },
   mounted() {}
@@ -104,5 +180,7 @@ export default {
 </script>
 
 <style lang="less">
-
+  .ui-input-inner{
+    text-align: right;
+  }
 </style>

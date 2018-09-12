@@ -38,8 +38,8 @@
   </ui-page>
 </template>
 <script>
-import navBar from '#/component/nav-bar'
-import formList from '#/component/form-list'
+import navBar from '#/component/navBar'
+import formList from '#/component/formList'
 import btn from '#/component/btn'
 export default {
   config: {

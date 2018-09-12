@@ -1,6 +1,6 @@
 {
-    "touchui.deving": false,
-    "touchui.builded": true,
+    "touchui.deving": true,
+    "touchui.builded": false,
     "touchui.enable": true,
     "files.associations": {
         "*.cjson": "jsonc",

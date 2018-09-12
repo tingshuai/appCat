@@ -12,7 +12,7 @@
           <ui-view class="nav_title">{{ title }}</ui-view>
         </ui-col>
         <ui-col vertical-align="middle" align="center" width="60">
-          <ui-text ui:if="{{ nextPage != ''}}" bindtap="handleNavRight">下一页</ui-text>
+          <ui-text ui:if="{{ nextPage != ''}}" bindtap="handleNavRight">下一步</ui-text>
         </ui-col>
       </ui-row>
     </ui-nav-bar>

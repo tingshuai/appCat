@@ -11,7 +11,7 @@
       <!-- 账号 -->
       <ui-view class="account-number" style="">
         <ui-text class="login-label">账户</ui-text>
-        <ui-input class="login-content" placeholder="手机号" type="number" ui:model="{{ account }}"></ui-input>
+        <ui-input class="login-content" placeholder="手机号" type="number" ui:model="{{ phone }}"></ui-input>
       </ui-view>
       <ui-view class="line {{ getClass(0) }}" ></ui-view>
       <!-- 密码 -->
@@ -36,15 +36,15 @@
     },
     data() {
       return {
-        account: '',
+        phone: '',
         password: '',
       }
     },
     computed:{
       rules:function(){//登录验证信息.......
         return [{
-                value:this.account,
-                fieldName:"account",
+                value:this.phone,
+                fieldName:"phone",
                 name:"账号",
                 regExp:'^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$',
                 tip:"请填写正确的手机号。",
@@ -78,21 +78,24 @@
         if( formVali.length == 0 ){//验证通过......
           this.http({
             url:'/cas/accessToken',
-            params:JSON.stringify({"account":that.account,"password":that.password}),
+            params:JSON.stringify({"phone":that.phone,"password":that.password}),
             cb:{
               title:'登录成功',
               icon:"success",
-              show:true
+              show:true,
+              duration:1
             },
             scb(res){
-              app.globalData.token = res.data.data.accessToken;
-              ui.setStorage({
-                key: "token",
-                data: res.data.data.accessToken
-              })
-              ui.redirectTo({
-                url: '/pages/home'
-              })
+              if( res.data.status == 200 ){
+                app.globalData.token = res.data.data.accessToken;
+                ui.setStorage({
+                  key: "token",
+                  data: res.data.data.accessToken
+                })
+                ui.redirectTo({
+                  url: '/pages/home'
+                })
+              }
             }
           })
         }

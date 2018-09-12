@@ -4,48 +4,60 @@
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <ui-view>
       <ui-row-list border-indent class="whiteBg">
-        <ui-row height="50">
+        <ui-row height="50" border-indent bindtap="handleChange('brand')">
           <ui-col width="110" vertical-align="middle" align="left" space-left="10">
               品牌
           </ui-col>
-          <ui-col class="text" vertical-align="middle">
+          <ui-col class="text" vertical-align="middle" align="right" space-right="5">
             <ui-view class="">
-              <ui-picker title="" mode="selector" value="{{ form.brand.value }}" range="{{ form.brand.list }}" bindchange="handleChange"></ui-picker>
+              {{ form.brand.value }}
             </ui-view>
           </ui-col>
+          <ui-col width="30" class="text" vertical-align="middle">
+            <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+          </ui-col>
         </ui-row>  
-        <ui-row height="50">
+        <ui-row height="50" border-indent bindtap="handleChange('versions')">
           <ui-col width="110" vertical-align="middle" align="left" space-left="10">
               型号
           </ui-col>
-          <ui-col class="text" vertical-align="middle">
+          <ui-col class="text" vertical-align="middle" align="right" space-right="5">
             <ui-view class="">
-              <ui-picker title="" mode="selector" value="{{ form.model.value }}" range="{{ form.model.list }}" bindchange="handleChange"></ui-picker>
+              {{ form.versions.value }}
             </ui-view>
+          </ui-col>
+          <ui-col width="30" class="text" vertical-align="middle">
+            <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
           </ui-col>
         </ui-row>
       </ui-row-list>
       <ui-row-list border-indent style="margin-top:15px;" class="whiteBg">
-        <ui-row height="50">
+        <ui-row height="50" border-indent bindtap="handleChange('displays')">
           <ui-col width="110" vertical-align="middle" align="left" space-left="10">
               接线方式
           </ui-col>
-          <ui-col class="text" vertical-align="middle">
+          <ui-col class="text" vertical-align="middle" align="right" space-right="5">
             <ui-view class="">
-              <ui-picker title="" mode="selector" value="{{ form.model.value }}" range="{{ form.model.list }}" bindchange="handleChange"></ui-picker>
+              {{ form.displays.value }}
             </ui-view>
+          </ui-col>
+          <ui-col width="30" class="text" vertical-align="middle">
+            <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
           </ui-col>
         </ui-row>
         <ui-row height="200">
-            <ui-image mode="aspectFit" src="./static/img/mCat.jpg"></ui-image>
+            <ui-image mode="aspectFit" src="{{`${form.displays.originArray[form.displays.index].linePict}`|| ''}}"></ui-image>
         </ui-row>
       </ui-row-list>
-    </ui-view>    
+    </ui-view>
+    <pop-picker list-data="{{ listData }}" bindreturnvalue="returnValue" is-show="{{ isShow }}" bindhidepop="hidePop"></pop-picker>
   </ui-page>
 </template>
 <script>
-import navBar from '#/component/nav-bar'
-import formList from '#/component/form-list'
+import navBar from '#/component/navBar'
+import formList from '#/component/formList'
+import popPicker from '#/component/popPicker'
+let _globalData = ui.getApp().globalData;
 export default {
   config: {
     navigationBarTitleText: "undefined",
@@ -53,37 +65,150 @@ export default {
   },
   components:{
     navBar,
-    formList
+    formList,
+    popPicker
   },
   data() {
     return {
       title:"接线方式",
       nextPage:"/pages/analysis",
+      listData:[],//单选项
+      isShow:false,
+      currentItem:"",//当前项索引...
+      index:0,
       form:{
         brand:{
           lebal:"品牌",
-          value:0,
-          list:["中国"]
+          list:[],
+          value:"",
+          originArray:[],
+          index:0
         },
-        model:{
+        versions:{
           lebal:"型号",
-          value:0,
-          list:["美国"]
+          value:"",
+          list:[],
+          originArray:[],
+          index:0
         },
-        colectModel:{
-          lebal:"型号",
-          value:0,
-          list:["美国"]
+        displays:{
+          lebal:"接线方式",
+          value:"",
+          list:[],
+          originArray:[{"linePict":""}],
+          displayImg:"",
+          index:0
         }
       }
     }
   },
   methods: {
-    handleChange(){
+    handleChange(e){
+      this.currentItem = e;
+      this.isShow = true;
+      if( this.form[e].list.length == 0 ){
+        if( e == "brand" ){
+            ui.showToast({title: "品牌列表为空",icon:'none',duration:1000})          
+        }else if( e == "versions" ){
+            ui.showToast({title: "请先选择品牌",icon:'none',duration:1000})          
+        }else if( e == "displays"){
+            ui.showToast({title: "请先选择型号",icon:'none',duration:1000})   
+        }
+      }else{
+        this.listData = this.form[e].list;
+        // this.form[e].value = this.form[e].index;
+      }
+      return;
+    },
+    returnValue(data){
+      this.form[`${this.currentItem}`].value = this.listData[data];
+      this.form[`${this.currentItem}`].index = data;
+      if( this.currentItem == "brand" ){
+        this.versions();
+      }else if( this.currentItem == "versions" ){
+        this.getLine()
+      }else if( this.currentItem == "displays"){
 
+      }      
+    },
+    hidePop(data){
+      this.isShow = false;
+    },
+    getVersions(){
+      let that = this;
+      this.http({
+        url:`${_globalData.http_url.displays}versions`,
+        method:"GET",
+        params:{"brand":that.form.brand.value},
+        cb:{
+          title:'',
+          icon:"success",
+          show:false,
+        },
+        scb(res){
+          if( res.data.status == 200 && res.data.data.length != 0 ){
+            that.listData=[];
+            res.data.data.filter((val)=>{
+              that.listData.push( val.version )
+            })
+            that.form.versions.list = that.listData;
+            that.form.versions.originArray = res.data.data;
+            that.form.versions.value = that.form.versions.list[0];
+            that.getLine()
+          }
+        }
+      })
+    },
+    getLine(){
+      let that = this;
+      this.http({
+        url:`${_globalData.http_url.displays}lines/${that.form.versions.originArray[that.form.versions.index].id}`,
+        method:"GET",
+        cb:{
+          title:'',
+          icon:"success",
+          show:false,
+        },
+        scb(res){
+          if( res.data.status == 200 && res.data.data.length != 0 ){
+            that.listData=[];
+            res.data.data.filter((val)=>{
+              that.listData.push( val.lineStyle )
+            })
+            that.form.displays.list = that.listData;
+            that.form.displays.originArray = res.data.data;
+            that.form.displays.value = that.form.displays.list[0];
+          }
+        }
+      })
+    },
+    getBrand(){
+      let that = this;
+      this.http({
+        url:`${_globalData.http_url.displays}brands`,
+        method:"GET",
+        cb:{
+          title:'',
+          icon:"success",
+          show:false,
+        },
+        scb(res){
+          if( res.data.status == 200 ){
+            res.data.data.filter((val)=>{
+              that.listData.push(val.brand)
+            })
+            that.form.brand.originArray = res.data.data;
+            that.form.brand.list = that.listData;
+            that.form.brand.value = that.form.brand.list[0];
+            that.getVersions();
+          }
+        }
+      })        
     }
   },
-  mounted() {}
+  mounted() {
+    this.getBrand();
+  }
 }
 </script>
 

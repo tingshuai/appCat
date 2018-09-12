@@ -28,16 +28,32 @@ ui.extend({//obj={url:'',params:'',contentType:'',cb:{tipType:'',show:'',title:'
     obj.cb.tipType = obj.cb.tipType || 'toast';
     obj.method = obj.method || 'POST';
     obj.url = obj.url || '';
+    obj.params = obj.params || '';
     obj.contentType = obj.contentType || 'application/json'
+    obj.token = ui.getApp().globalData.token;
+    ui.getStorage({
+      key: 'token',
+      success: function (res) {
+        obj.token = res.data;
+      }
+    })
     ui.request({
       url: `${obj.url}`, //仅为示例，并非真实的接口地址
-      data: `${obj.params}`,
+      data: obj.params,
       method:`${obj.method}`,
-      header: {'content-type': obj.contentType ,"token":ui.getApp().globalData.token},
+      header: {'content-type': obj.contentType,"token":obj.token},
       success (res) {
-        uiTit( obj.cb );
         setTimeout(()=>{
           obj.scb(res);
+          if( res.data.status == 500 ){
+            ui.showToast({ 
+              title: res.data.message,
+              icon:'none',
+              duration:1000
+            })
+          }else{
+            uiTit( obj.cb );
+          }
         },obj.cb.duration)
       },
       fail(res){

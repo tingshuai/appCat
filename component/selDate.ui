@@ -21,7 +21,8 @@ export default {
       this.date = e;
       setTimeout(() => {
         this.showDate = false
-        ui.emit('oncdate',e);
+        ui.emit('tap','oncdate',e);
+        ui;
         debugger;
       }, 200)
     }  
