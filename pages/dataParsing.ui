@@ -1,0 +1,89 @@
+<!--undefined-->
+<template>
+  <ui-page class="grayBg">
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-view>
+      <ui-row-list border-indent class="whiteBg">
+        <ui-row height="50" border-indent>
+          <ui-col vertical-align="middle" align="center">解析参数名</ui-col>
+          <ui-col vertical-align="middle" align="center">参数值</ui-col>
+        </ui-row>
+        <ui-row height="50" border-indent ui:for="{{ list }}">
+          <ui-col vertical-align="middle" align="left">
+              <ui-input placeholder="" ui:model="{{ item.name }}" type="text" style="border:none;text-align:right;"></ui-input>
+          </ui-col>
+          <ui-col class="text" width="20" vertical-align="middle" align="center">
+            <ui-view class="">==</ui-view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="right" class="right">
+              <ui-input placeholder="" ui:model="{{ item.value }}" type="text" style="border:none;text-align:right;"></ui-input>
+          </ui-col>
+        </ui-row>
+      </ui-row-list>
+    </ui-view>
+    <btn bindontouch="connect" disabled="{{ disabled }}" text="开始解析" style="margin:15px 0;"></btn>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import formList from '#/component/formList'
+import popPicker from '#/component/popPicker'
+import btn from '#/component/btn'
+let _globalData = ui.getApp().globalData;
+export default {
+  config: {
+    navigationBarTitleText: "undefined",
+    backgroundColor:"#e5e5e5",
+  },
+  components:{
+    navBar,
+    formList,
+    popPicker,
+    btn
+  },
+  data() {
+    return {
+      title:"数据解析",
+      nextPage:"/pages/analysis",
+      disabled:false,
+      list:[
+        {
+          name:"",
+          value:""
+        },{
+          name:"",
+          value:""
+        },{
+          name:"",
+          value:""
+        }
+      ]
+    }
+  },
+  methods: {
+    connect(){
+
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .sample_content{
+    font-size: 36rpx;
+    font-family: PingFang-SC-Bold;
+    color: rgba(51,51,51,1);
+    padding: 10px;
+    .price{
+      font-weight: bold;
+    }
+  }
+  .right{
+    .ui-input-inner{
+      text-align: center;
+    }
+  }
+</style>

@@ -4,7 +4,7 @@
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <ui-row height="200">
       <ui-col align="center" vertical-align="middle">
-          <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
+        <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
       </ui-col>
     </ui-row>
     <ui-row-list border-indent>
@@ -72,7 +72,8 @@ export default {
   data(){
     return {
       title:"M-CAT信息",
-      nextPage:"/pages/EquipmentInfor",
+      // nextPage:"/pages/EquipmentInfor",
+      nextPage:"/pages/goToBy",
       mCatMsg:{}
     }
   },

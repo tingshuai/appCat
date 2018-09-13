@@ -26,31 +26,31 @@
     <!-- 栏目 -->
     <ui-view class="home-list">
       <ui-row>
-        <ui-col>
-          <ui-view class="column-content-l" bindtap="saosao">
+        <ui-col align="center" space-left="15">
+          <ui-view bindtap="saosao">
             <ui-image src="{{require('../images/meinv.jpg')}}"></ui-image>
-            <ui-view class="item-text">扫一扫</ui-view>
           </ui-view>
+          <ui-view class="item-text">扫一扫</ui-view>
         </ui-col>
-        <ui-col>
-          <ui-view class="column-content-r">
+        <ui-col align="center" space-right="15">
+          <ui-view>
             <ui-image src="{{img}}"></ui-image>
-            <ui-view class="item-text">扫一扫</ui-view>
           </ui-view>
+          <ui-view class="item-text">配置引导</ui-view>
         </ui-col>
       </ui-row>
       <ui-row>
-        <ui-col>
-          <ui-view class="column-content-l mar-top">
+        <ui-col align="center" space-left="15">
+          <ui-view class="">
             <ui-image src="{{img}}"></ui-image>
-            <ui-view class="item-text">扫一扫</ui-view>
           </ui-view>
+          <ui-view class="item-text">机器猫简介</ui-view>
         </ui-col>
-        <ui-col>
-          <ui-view class="column-content-r mar-top">
+        <ui-col align="center" space-right="15">
+          <ui-view class="">
             <ui-image src="{{img}}"></ui-image>
-            <ui-view class="item-text">扫一扫</ui-view>
           </ui-view>
+          <ui-view class="item-text">飞戎简介</ui-view>
         </ui-col>
       </ui-row>
   </ui-page>
@@ -164,7 +164,7 @@
     }
   }
   .home-list {
-    padding: 100rpx 167rpx 0;
+    padding-top: 80rpx;
     .ui-image-container {
       width: 128rpx;
       height: 128rpx;
@@ -183,13 +183,12 @@
       text-align: left;
     }
     .item-text {
-      width: 128rpx;
       text-align: center;
       display: inline-block;
       vertical-align: middle;
-      font-size: 30rpx;
+      font-size: 0.4rem;
+      padding: 15rpx 0;
       color: #666666;
-      margin-top: 23rpx;
     }
     .mar-top {
       padding-top: 87rpx;

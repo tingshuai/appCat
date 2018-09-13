@@ -1,30 +1,77 @@
-<!--navBar2.ui-->
+<!--page.ui-->
 <template>
   <ui-page>
+    <ui-view style="" class="title">
+      <ui-text class="tit">售后</ui-text>
+    </ui-view>
+    <ui-row-list class="whiteBg" style="margin-top: 15px;">
+      <ui-row height="50" border-indent>
+        <ui-col width="50" vertical-align="middle" align="center">
+          <ui-icon type="myWx-zhifubao1" size="22" color="#00A0E9"></ui-icon>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left">关于我们</ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50" border-indent>
+        <ui-col width="50" vertical-align="middle" align="center">
+           <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
+          联系我们
+        </ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50" border-indent>
+        <ui-col width="50" vertical-align="middle" align="center">
+           <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
+          售后条款
+        </ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>      
+    </ui-row-list>       
   </ui-page>
 </template>
-
 <script>
-export default {
-  config: {
-    navigationBarTitleText: "右侧自定义一个图标",
-    navigationBarTextStyle:"black"
-  },
-  data () {
-    return {
+  import navBar from '#/component/navBar'
+  export default {
+    config: {
+      disableScroll: true,
+      navigationBarTitleText: "",
+      "navigationStyle": "custom",
+    },
+    components:{
+      navBar
+    },  
+    data () {
+      return {
 
+      }
+    },
+    methods: {
+      
     }
-  },
-  methods: {
- 
-  },
-  mounted () {
-
   }
-}
-
 </script>
 
 <style lang="less">
-
+.title{
+  height: 150rpx;
+  line-height: 160rpx;
+  padding-left: 20rpx;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .tit{
+    >span{
+      font-size: 80rpx;
+      font-weight: 500;
+    }
+  }
+}
 </style>

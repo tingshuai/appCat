@@ -1,0 +1,42 @@
+<!--undefined-->
+<template>
+    <ui-row-list border-indent>
+      <ui-row height="50" ui:if="{{ title != '' }}">
+        <ui-col class="tit" vertical-align="middle" align="left" space-left="10">{{ title }}</ui-col>
+      </ui-row>      
+      <ui-row height="50" ui:for="{{ dataList }}">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            {{ item.name }}
+        </ui-col>
+        <ui-col class="text" vertical-align="middle">
+          {{ item.value }}
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  props:["title","dataList"],
+  data() {
+    return {}
+  },
+  methods: {},
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+  .tit{
+    font-size:20px;
+    font-family:"PingFang-SC-Bold";
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    .ui-col-content{
+      font-weight: bold;
+    }
+  }
+</style>

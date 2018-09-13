@@ -15,10 +15,10 @@ export default {
   config: {
     navigationBarTitleText: "undefined"
   },
-  props:["isShow","listData"],
+  props:["isShow","listData","index"],
   data() {
     return {
-      value:0
+      
     }
   },
   methods: {
@@ -36,6 +36,9 @@ export default {
   computed:{
     show:function(){
       return this.isShow;
+    },
+    value:function(){
+      return this.index;
     }
   },
   mounted() {}

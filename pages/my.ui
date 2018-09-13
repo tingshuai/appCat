@@ -1,91 +1,111 @@
 <!--page.ui-->
 <template>
-<ui-view>
-  <ui-view class="bg_blue"></ui-view>  
-  <ui-page pull-down="{{ pullDown }}" style="{{{backgroundColor: 'rgb(255, 255, 255,0)'}}}">
-    <ui-view slot="pull-down"></ui-view>
-    <ui-view class="login_content" style="{{{ height:contentHeight + 'px' }}}">
-      <ui-row height="150" class="header_top">
-        <ui-col vertical-align="middle" space-left="30">
-          <ui-view>登录／注册</ui-view>
-          <ui-view>登录后可享受更多特权</ui-view>
-        </ui-col>
-        <ui-col vertical-align="middle" align="center" width="50">
-          <ui-icon type="arrow-right" size="18" color="#fff"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-view class="icon_group"></ui-view>
-      <ui-row height="50" class="center" space-top="15">
+  <ui-page>
+    <nav-bar pre-page="{{ false }}" title="{{ title }}" next-page="{{ nextPage }}" style="background-color:#FF863F;"></nav-bar>
+    <ui-view class="bg_blue"></ui-view>
+    <ui-view class="box">
+      <ui-row class="mineMsg" space-top="15">
         <ui-col width="80" vertical-align="middle" align="center">
-          <ui-icon type="praiseafter" color="#0099F8" size="28"></ui-icon>
+          <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
         </ui-col>
-        <ui-col vertical-align="middle">
-          服务中心
-        </ui-col>
-        <ui-col vertical-align="middle" align="center" width="50">
-          <ui-icon type="arrow-right" size="18" color="#ccc"></ui-icon>
+        <ui-col vertical-align="middle" align="left">
+          <ui-view>
+            <ui-text style="" class="name">卢俊义</ui-text>
+            <ui-text style="">产品经理</ui-text>
+          </ui-view>
+          <ui-view>13585462578</ui-view>
         </ui-col>
       </ui-row>
+      <ui-view class="company">上海飞讯制造生产有限公司</ui-view>
+    </ui-view>
+    <ui-row-list class="whiteBg" style="margin-top: 15px;">
+      <ui-row height="50" border-indent>
+        <ui-col width="50" vertical-align="middle" align="center">
+          <ui-icon type="myWx-zhifubao1" size="22" color="#00A0E9"></ui-icon>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left">支付宝</ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>
+      <ui-row height="50" border-indent>
+        <ui-col width="50" vertical-align="middle" align="center">
+           <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
+          微信支付
+        </ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>    
   </ui-page>
-</ui-view>
 </template>
-
-
 <script>
-// page.js
-export default {
-  config: {
-    navigationBarTitleText: "我的",
-    navigationBarBackgroundColor:"#0099F8",
-    navigationBarTextStyle:"white",
-    navigationBarBorderColor:"#39f",
-    disableScroll: true,
-  },
-  data () {
-    return {
-      contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
-      pullDown: {
-        distance: 100
+  import navBar from '#/component/navBar'
+  export default {
+    config: {
+      disableScroll: true,
+      navigationBarTitleText: "",
+      "navigationStyle": "custom",
+    },
+    components:{
+      navBar
+    },  
+    data () {
+      return {
+        contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
+        title:"我",
+        nextPage:""
       }
+    },
+    methods: {
+      
     }
-  },
-  methods: {
-
   }
-}
-
 </script>
 
 <style lang="less">
   // page.less
-.login_content{
-  background: #EEEEEE;
+.box{
+  width: 95%;
+  height: 300rpx;
+  margin: 0 auto;
+  background-color: white;
+  margin-top: 20rpx;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20rpx;
+  box-shadow:0px 9px 22px 0px rgba(0,0,0,0.15);
+  padding: 0 50rpx;
 }
-.header_top{
-  background: #0099F8;
-  padding-top: 30px;
-  .ui-view{
-    color: #fff;
-    line-height: 30px;
+.name{
+  font-size:22px;
+  font-family:PingFang-SC-Bold;
+  color:rgba(51,51,51,1);
+  >span{
+    font-weight:bold;
   }
-  .ui-view:first-child{
-    font-size: 24px;
-  }
 }
-.icon_group{
-  height:90px;
-  background: url('~images/nav.jpg') no-repeat center center;
-  background-size: 100%;
-}
-.center{
-  background: #fff;
+.mineMsg{
+  padding: 20rpx 0;
 }
 .bg_blue{
   position: absolute;
   width: 100%;
-  height: 240px;
-  background-color: #0099F8;
+  height: 180rpx;
+  background-color: #FF863F;
 }
-
-
+.company{
+  height: 80rpx;
+  line-height: 110rpx;
+  .mix-1px(1, 0, 0, 0, #ccc);
+}
+.ui-nav-bar{
+  border: none!important;
+}
+.nav_title{
+  color: white;
+}
 </style>

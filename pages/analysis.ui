@@ -22,7 +22,7 @@
           <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
           <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
         </ui-col>
-      </ui-row>   
+      </ui-row>
       <ui-row height="60" space-top="15">
         <ui-col width="80" vertical-align="top" align="right">
             <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
@@ -33,7 +33,7 @@
         </ui-col>
       </ui-row>
       <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);padding-left:50px;">参数正常，解析成功.</ui-text>   
-      <btn text="确认" btn-parent-style="{{ btnParentStyle }}"></btn>
+      <btn text="确认" btn-parent-style="{{ btnParentStyle }}" style="margin:15px 0;"></btn>
     </ui-row-list>
   </ui-page>
 </template>

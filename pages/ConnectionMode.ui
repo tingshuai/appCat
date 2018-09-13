@@ -50,13 +50,15 @@
         </ui-row>
       </ui-row-list>
     </ui-view>
-    <pop-picker list-data="{{ listData }}" bindreturnvalue="returnValue" is-show="{{ isShow }}" bindhidepop="hidePop"></pop-picker>
+    <btn bindontouch="connect" disabled="{{ disabled }}" text="连接测试"></btn>
+    <pop-picker list-data="{{ listData }}" index="{{ index }}" bindreturnvalue="returnValue" is-show="{{ isShow }}" bindhidepop="hidePop"></pop-picker>
   </ui-page>
 </template>
 <script>
 import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import popPicker from '#/component/popPicker'
+import btn from '#/component/btn'
 let _globalData = ui.getApp().globalData;
 export default {
   config: {
@@ -66,15 +68,17 @@ export default {
   components:{
     navBar,
     formList,
-    popPicker
+    popPicker,
+    btn
   },
   data() {
     return {
       title:"接线方式",
       nextPage:"/pages/analysis",
       listData:[],//单选项
-      isShow:false,
+      isShow:false,//是否出现弹框
       currentItem:"",//当前项索引...
+      disabled:false,
       index:0,
       form:{
         brand:{
@@ -116,7 +120,7 @@ export default {
         }
       }else{
         this.listData = this.form[e].list;
-        // this.form[e].value = this.form[e].index;
+        this.index = this.form[e].index;
       }
       return;
     },
@@ -124,12 +128,12 @@ export default {
       this.form[`${this.currentItem}`].value = this.listData[data];
       this.form[`${this.currentItem}`].index = data;
       if( this.currentItem == "brand" ){
-        this.versions();
+        this.getVersions();
       }else if( this.currentItem == "versions" ){
         this.getLine()
       }else if( this.currentItem == "displays"){
 
-      }      
+      }
     },
     hidePop(data){
       this.isShow = false;
@@ -204,7 +208,10 @@ export default {
           }
         }
       })        
-    }
+    },
+    connect(){
+      debugger;
+    }   
   },
   mounted() {
     this.getBrand();

@@ -1,0 +1,101 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <text-list data-list="{{ deviceList }}" title="{{ listTitle }}" class="whiteBg"></text-list>
+    <text-list data-list="{{ mCatList }}" title="{{ listTitle2 }}" class="whiteBg"></text-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "模型未购买",
+    "navigationStyle": "custom",
+    backgroundColor:"#e5e5e5",
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"设备绑定",
+      nextPage:"/pages/dataParsing",
+      mCatMsg:{},
+      listTitle:"设备信息",//
+      listTitle2:"M-CAT",//
+      disabled:false,
+      deviceList:[
+        {
+          name:"设备编号",
+          value:"F03333"
+        },{
+          name:"设备名称",
+          value:"内燃机设备"
+        },{
+          name:"品牌名称",
+          value:"飞讯牌"
+        },{
+          name:"生产型号",
+          value:"SZ89888"
+        },{
+          name:"生产厂家",
+          value:"深圳*****公司"
+        },{
+          name:"出厂日期",
+          value:"2015-8-8"
+        },{
+          name:"控制器型号",
+          value:"PLC999999"
+        },{
+          name:"配置参数",
+          value:"F03333"
+        }
+      ],
+      mCatList:[
+        {
+          name:"M-CAT编号",
+          value:"FR00001"
+        },{
+          name:"M-CAT型号",
+          value:"LJJDSLF99"
+        },{
+          name:"接口类型",
+          value:"HP0000"
+        },{
+          name:"接入电压",
+          value:"22v"
+        },{
+          name:"额定电流",
+          value:"22A-50A"
+        }
+      ]
+    }
+  },
+  methods: {
+    toPay(){
+
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .warn{
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 40px; 
+  }
+  .hImg{
+    width: 100%;
+    height: 100%;
+  }
+</style>

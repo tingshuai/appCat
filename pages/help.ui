@@ -1,33 +1,31 @@
+<!--page.ui-->
 <template>
-    <ui-view class="help"> 
+  <ui-page top="0">
 
-    </ui-view>
+  </ui-page>
 </template>
-
 <script>
-export default {
-  config: {
-    navigationBarTitleText: 'xx',
-    disableScroll:true
-  },
-  data () {
-    return {
-     
-    }
-  },
-  methods: {
-    buttonHandle () {
+  import navBar from '#/component/navBar'
+  export default {
+    config: {
+      disableScroll: true,
+      navigationBarTitleText: "",
+      "navigationStyle": "custom",
+    },
+    components:{
+      navBar
+    },  
+    data () {
+      return {
 
+      }
+    },
+    methods: {
+      
     }
   }
-}
-
 </script>
 
 <style lang="less">
-.help{
-   position: fixed;
-   top: 0;
-   bottom: 57px;
-}
+ 
 </style>

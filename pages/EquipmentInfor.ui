@@ -18,9 +18,7 @@
             {{ item.lebal }}
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="right" space-right="5">
-          <ui-view class="">
-            {{ item.value }}
-          </ui-view>
+          <ui-view class="">{{ item.value }}</ui-view>
         </ui-col>
         <ui-col width="30" class="text" vertical-align="middle">
           <ui-icon type="myWx-xiangyou" size="22"></ui-icon>

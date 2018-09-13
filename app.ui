@@ -10,7 +10,12 @@ export default {
       "pages/EquipmentInfor",
       "pages/collectType",
       "pages/ConnectionMode",
-      "pages/analysis"
+      "pages/analysis",
+      "pages/dataParsing",
+      "component/textList",
+      "pages/goToBy",
+      "pages/byPage",
+      "pages/deviceBinding"
     ],
     "theme": {
       "theme-color": "#FF5D05"
@@ -30,9 +35,9 @@ export default {
       "list": [
         {
           "pagePath": "pages/home",
-          "iconPath": "static/img/cat.png",
-          "selectedIconPath" :"static/img/cat-ac.png",
-          "text": ""
+          "iconPath": "static/img/home.svg",
+          "selectedIconPath" :"static/img/homeAct.svg",
+          "text": "首页"
         },
         {
           "pagePath": "pages/afterSale",
