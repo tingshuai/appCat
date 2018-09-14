@@ -1,19 +1,7 @@
 <template>
-  <ui-page>
-    <!-- 自定义导航栏 -->
-    <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
-      <ui-row style="height: 46px;background-color: white;">
-        <ui-col vertical-align="middle" align="center">
-          <ui-view class="home-header">
-            <ui-view class="search">
-              <ui-icon type="search" size="16" color="#999999"></ui-icon>
-              <ui-view class="login-content">搜索应用/参数/产品名称</ui-view>
-            </ui-view>
-            <ui-icon type="add" size="18" color="#333333" bindtap="login"></ui-icon>
-          </ui-view>
-        </ui-col>
-      </ui-row>
-    </ui-nav-bar>
+  <ui-page top="0">
+    <!-- 搜索框 -->
+    <search></search>
     <!-- 轮播 -->
     <ui-view class="my-swiper my-swiper-og">
       <ui-swiper class="two_swiper" autoplay circular>
@@ -28,13 +16,13 @@
       <ui-row>
         <ui-col align="center" space-left="15">
           <ui-view bindtap="saosao">
-            <ui-image src="{{require('../images/meinv.jpg')}}"></ui-image>
+            <ui-image src="./static/img/sao@2x.png"></ui-image>
           </ui-view>
           <ui-view class="item-text">扫一扫</ui-view>
         </ui-col>
-        <ui-col align="center" space-right="15">
+        <ui-col align="center" space-right="15" bindtap="guide">
           <ui-view>
-            <ui-image src="{{img}}"></ui-image>
+            <ui-image src="./static/img/sfile@2x.png"></ui-image>
           </ui-view>
           <ui-view class="item-text">配置引导</ui-view>
         </ui-col>
@@ -42,13 +30,13 @@
       <ui-row>
         <ui-col align="center" space-left="15">
           <ui-view class="">
-            <ui-image src="{{img}}"></ui-image>
+            <ui-image src="./static/img/cat@2x.png"></ui-image>
           </ui-view>
           <ui-view class="item-text">机器猫简介</ui-view>
         </ui-col>
         <ui-col align="center" space-right="15">
           <ui-view class="">
-            <ui-image src="{{img}}"></ui-image>
+            <ui-image src="./static/img/feirong@2x.png"></ui-image>
           </ui-view>
           <ui-view class="item-text">飞戎简介</ui-view>
         </ui-col>
@@ -57,12 +45,16 @@
 </template>
 
 <script>
+  import search from '#/component/search'
   export default {
     config: {
       navigationStyle: "custom",
       disableScroll: true,
       statusBarColor: 'dark'
     },
+    components:{
+      search
+    },      
     data() {
       return {
         buttonText: '界面跳转',
@@ -99,6 +91,11 @@
             console.log(res)
           }
         })
+      },
+      guide(){
+        ui.navigateTo({
+          url:`/pages/guide`
+        })        
       }
     },
     mounted() {
@@ -197,4 +194,33 @@
       padding-left: 160rpx;
     }
   }
+.search{
+  position: relative;
+  margin: 40rpx 0;
+  padding:0 20rpx;
+  .microphone{
+    position: absolute;
+    right: 10rpx;
+    top:20rpx;
+  }
+  .Magnifier{
+    position: absolute;
+    left: 20rpx;
+    top:35rpx;    
+    z-index: 100;
+    width: 30rpx;
+    height: 30rpx;
+    >img{
+
+    }
+  }
+  .searchMe{
+    .ui-input{
+      border-radius: 20rpx;
+      padding-right: 50rpx;
+      padding-left: 70rpx;
+      box-shadow:0px 4px 8px 0px rgba(0,0,0,0.15);
+    }
+  }
+}  
 </style>

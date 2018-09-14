@@ -207,6 +207,8 @@
 
 .icon-myWx-weizhi2:before { content: "\e63a"; }
 
+.icon-myWx-fangdajingcopy:before { content: "\e67e"; }
+
 .icon-myWx-xls:before { content: "\e648"; }
 
 .icon-myWx-shibieweixinyuyin-:before { content: "\e647"; }
@@ -217,11 +219,17 @@
 
 .icon-myWx-bianji-:before { content: "\e636"; }
 
+.icon-myWx-dianhua-copy:before { content: "\e681"; }
+
 .icon-myWx-tupianshuiyinshezhi:before { content: "\e6bb"; }
 
 .icon-myWx-zhong1:before { content: "\e662"; }
 
+.icon-myWx-phone:before { content: "\e682"; }
+
 .icon-myWx-iconfontqianjin2:before { content: "\e603"; }
+
+.icon-myWx-fangdajing:before { content: "\e67f"; }
 
 .icon-myWx-xiangzuo1:before { content: "\e62b"; }
 
@@ -255,6 +263,8 @@
 
 .icon-myWx-doc-card:before { content: "\e62a"; }
 
+.icon-myWx-fangdajing1:before { content: "\e680"; }
+
 .icon-myWx-xls4:before { content: "\e607"; }
 
 .icon-myWx-qianjin6:before { content: "\e608"; }
@@ -266,6 +276,8 @@
 .icon-myWx-xiangyou1:before { content: "\e62c"; }
 
 .icon-myWx-zhaopian2:before { content: "\e6c9"; }
+
+.icon-myWx-dianhua:before { content: "\e777"; }
 
 .icon-myWx-yuyintonghua2:before { content: "\e663"; }
 
@@ -356,5 +368,6 @@
 .icon-myWx-dui3:before { content: "\e672"; }
 
 .icon-myWx-gantanhao4:before { content: "\e676"; }
+
 
 

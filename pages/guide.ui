@@ -1,0 +1,113 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-row-list class="whiteBg step" style="margin-top: 15px;">
+      <ui-row height="140" border-indent ui:for="{{ dataList }}">
+        <ui-col width="100" vertical-align="middle" align="center">
+            <ui-text class="{{['line',{ 'hid': index == 0 ? true : false }]}}" style=""></ui-text>
+            <ui-text class="serial">{{ index + 1 }}</ui-text>
+            <ui-text class="{{['line',{ 'hid': index + 1 == dataList.length ? true : false }]}}"></ui-text>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left">
+          <ui-view class="tit1">{{ item.name }}</ui-view>
+          <ui-image mode="aspectFit" src="{{ item.img }}" class="img1"></ui-image>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "模型未购买",
+    "navigationStyle": "custom",
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"配置指引",
+      nextPage:"",
+      dataList:[
+        {
+          name:"设备编号",
+          value:"F03333",
+          img:"./static/img/mCat.jpg"
+        },{
+          name:"设备名称",
+          value:"内燃机设备",
+          img:"./static/img/mCat.jpg"
+        },{
+          name:"品牌名称",
+          value:"飞讯牌",
+          img:"./static/img/mCat.jpg"
+        }
+      ]
+    }
+  },
+  methods: {
+    toPay(){
+
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .step{
+    .line{
+      border-left: 5rpx dashed #22ac38;
+      display: block;
+      margin: 0 auto;
+      height: 110rpx;
+      width: 5rpx;
+    }
+    .serial{
+      display: block;
+      height: 50rpx;
+      width: 50rpx;
+      line-height: 50rpx;
+      border-radius: 50%;
+      background-color: #22AC38;
+      color: white;
+    }
+    .ui-row{
+      &:after{
+        border-bottom: none!important;
+      }
+    }
+    .tit1{
+      height: 40rpx;
+      margin: 20rpx 0;
+      padding: 0 20rpx;
+    }
+    .img1{
+      height: 200rpx;
+    }
+    .text{
+      background:rgba(255,255,255,1);
+      border-radius:10px;
+      margin-right: 30rpx;
+      margin-top: 20rpx;
+      box-shadow:0px 4px 8px 0px rgba(0,0,0,0.15);
+      // padding: 20rpx 0;
+      height: 240rpx;
+      .ui-col-content{
+        height: 240rpx!important;
+      }
+    }
+    .hid{
+      opacity: 0;
+    }
+  }
+</style>

@@ -15,7 +15,11 @@ export default {
       "component/textList",
       "pages/goToBy",
       "pages/byPage",
-      "pages/deviceBinding"
+      "pages/deviceBinding",
+      "component/search",
+      "pages/guide",
+      "pages/aboutUs",
+      "pages/contactUs"
     ],
     "theme": {
       "theme-color": "#FF5D05"

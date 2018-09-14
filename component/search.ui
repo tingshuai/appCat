@@ -1,0 +1,64 @@
+<!--undefined-->
+<template>
+    <ui-row height="50" border-indent class="search">
+      <ui-col vertical-align="middle" align="center" class="searchMe">
+        <ui-image mode="aspectFit" src="./static/img/search@2x.png" class="Magnifier"></ui-image>        
+        <ui-input show-clear="false" placeholder="搜索" ui:model="{{ searchValue }}"></ui-input>
+        <ui-icon type="myWx-huatongyinliang0" class="microphone" size="22"></ui-icon>
+      </ui-col>
+      <ui-col width="50" class="text" vertical-align="middle" align="center">
+        <ui-text class="tit" bindtap="clear">取消</ui-text>
+      </ui-col>
+    </ui-row>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  data() {
+    return {
+      searchValue:"",
+    }
+  },
+  methods: {
+      clear(){
+        this.searchValue = ""
+      }    
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+  .search{
+    position: relative;
+    margin: 40rpx 0;
+    padding:0 20rpx;
+    .microphone{
+      position: absolute;
+      right: 10rpx;
+      top:20rpx;
+    }
+    .Magnifier{
+      position: absolute;
+      left: 20rpx;
+      top:35rpx;    
+      z-index: 100;
+      width: 30rpx;
+      height: 30rpx;
+      >img{
+
+      }
+    }
+    .searchMe{
+      .ui-input{
+        border-radius: 20rpx;
+        padding-right: 50rpx;
+        padding-left: 70rpx;
+        box-shadow:0px 4px 8px 0px rgba(0,0,0,0.15);
+      }
+    }
+  } 
+</style>

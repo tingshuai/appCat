@@ -1,0 +1,85 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-row height="150">
+      <ui-col>
+        <ui-view style="display:block;height:100%;">
+          <ui-image mode="aspectFill" src="./static/img/layer2_2@3x.png" class="hImg"></ui-image>
+        </ui-view>
+      </ui-col>
+    </ui-row>  
+    <ui-row class="txt">
+      <ui-col>
+        <ui-text class="tit">海宁公司（总部）</ui-text>
+      </ui-col>
+    </ui-row>
+    <ui-row class="txt">
+      <ui-col>
+        <ui-view style="">
+          <ui-icon type="myWx-phone" size="22"></ui-icon>
+          <ui-text class="tit0" style="">0573-88888888</ui-text>
+        </ui-view>
+        <ui-view style="">
+          <ui-icon type="myWx-weizhi" size="22"></ui-icon>
+          <ui-text class="tit1" style="">浙江省海宁市马桥街道创智大厦8F</ui-text>
+        </ui-view>        
+      </ui-col>
+    </ui-row>     
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "模型未购买",
+    "navigationStyle": "custom",
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"联系我们",
+      nextPage:"",
+    }
+  },
+  methods: {
+    toPay(){
+
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .tit{
+    display:block;
+    padding:20rpx 0;
+    >span{
+      font-size: 40rpx;
+      font-weight: 600;
+    }
+  }
+  .article{
+    display:block;
+  }
+  .title{
+    padding:0 40rpx;
+    margin-top:20rpx;
+  }
+  .hImg{
+    height:100%;
+    border-radius:30rpx;
+  }
+  .txt{
+    padding:0 20rpx;
+  }
+</style>

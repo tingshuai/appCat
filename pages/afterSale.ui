@@ -5,18 +5,18 @@
       <ui-text class="tit">售后</ui-text>
     </ui-view>
     <ui-row-list class="whiteBg" style="margin-top: 15px;">
-      <ui-row height="50" border-indent>
+      <ui-row height="50" border-indent bindtap="aboutUs">
         <ui-col width="50" vertical-align="middle" align="center">
-          <ui-icon type="myWx-zhifubao1" size="22" color="#00A0E9"></ui-icon>
+          <ui-image mode="aspectFit" src="./static/img/i@2x.png" class="hImg"></ui-image>
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="left">关于我们</ui-col>
         <ui-col width="30" class="text" vertical-align="middle">
           <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
         </ui-col>
       </ui-row>
-      <ui-row height="50" border-indent>
+      <ui-row height="50" border-indent bindtap="contactUs">
         <ui-col width="50" vertical-align="middle" align="center">
-           <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon>
+          <ui-image mode="aspectFit" src="./static/img/contact@2x.png" class="hImg"></ui-image>
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="left" space-left="5">
           联系我们
@@ -27,7 +27,7 @@
       </ui-row>
       <ui-row height="50" border-indent>
         <ui-col width="50" vertical-align="middle" align="center">
-           <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon>
+          <ui-image mode="aspectFit" src="./static/img/ii@2x.png" class="hImg"></ui-image>
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="left" space-left="5">
           售后条款
@@ -56,7 +56,16 @@
       }
     },
     methods: {
-      
+      aboutUs(){
+        ui.navigateTo({
+          url:`/pages/aboutUs`
+        })            
+      },
+      contactUs(){
+        ui.navigateTo({
+          url:`/pages/contactUs`
+        })            
+      }
     }
   }
 </script>
@@ -72,6 +81,13 @@
       font-size: 80rpx;
       font-weight: 500;
     }
+  }
+}
+.hImg{
+  width: 38rpx;
+  height: 38rpx;
+  >img{
+
   }
 }
 </style>
