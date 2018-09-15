@@ -19,8 +19,13 @@ function uiTit(_fcb){
     })
   }
 }
-ui.extend({//obj={url:'',params:'',contentType:'',cb:{tipType:'',show:'',title:'',icon:'',duration:1000}}
-  http(obj){
+ui.extend({
+  toDeveloping(){
+    return ui.navigateTo({
+      url:`/pages/develop`
+    })
+  },
+  http(obj){//obj={url:'',params:'',contentType:'',cb:{tipType:'',show:'',title:'',icon:'',duration:1000}}
     obj.cb.duration = obj.cb.duration || 1000;
     obj.cb.icon = obj.cb.icon || '';
     obj.cb.title = obj.cb.title || '';
@@ -97,6 +102,6 @@ ui.extend({//obj={url:'',params:'',contentType:'',cb:{tipType:'',show:'',title:'
       }
     })
     return _obj;
-  }  
+  }
 })
 ui.start(options)

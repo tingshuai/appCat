@@ -1,0 +1,66 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-row height="350" border-indent class="tImg">
+      <ui-col vertical-align="middle" align="center">
+        <ui-image mode="aspectFit" src="./static/img/developing@3x.png" class="img1"></ui-image>
+      </ui-col>
+    </ui-row>
+    <ui-view style="" class="title">
+      <ui-text class="tit">此功能正在开发</ui-text>
+      <!-- <ui-text class="article">浙江飞戎机器人科技有限公司于2012年09月26日在海宁市市场监督管理局登记成立。法定代表人沈建飞，公司经营范围包括智能机器人设计、研发、制造、加工；工业自动化系统等。</ui-text> -->
+    </ui-view>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "模型未购买",
+    "navigationStyle": "custom",
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"",
+      nextPage:"",
+    }
+  },
+  methods: {
+    toPay(){
+
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .tit{
+    display:block;
+    >span{
+      font-size: 35rpx;
+      font-weight: 400;
+    }
+  }
+  .article{
+    display:block;
+  }
+  .title{
+    padding:0 40rpx;
+    margin-top:20rpx;
+    text-align: center;
+  }
+  .tImg{
+    margin-top: 40rpx;
+  }
+</style>

@@ -1,0 +1,64 @@
+<!--undefined-->
+<template>
+    <ui-row-list class="whiteBg" style="margin-top: 15px;">
+      <ui-row height="50" border-indent ui:for="{{ dataList }}" bindtap="toPage(item)" data-item = "{{ item }}">
+        <ui-col width="50" vertical-align="middle" align="center">
+          <ui-icon type="myWx-{{ item.icon }}" size="22" ui:if="{{ item.icon != '' }}" color="#00A0E9"></ui-icon>
+          <ui-image mode="aspectFit" ui:if="{{ item.src != '' }}" src="{{ item.src }}" class="hImg"></ui-image>
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left">{{ item.text }}</ui-col>
+        <ui-col width="30" class="text" vertical-align="middle">
+          <ui-icon type="myWx-{{ item.rightIcon }}" size="22"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "undefined"
+  },
+  props:{
+    dataList:{
+      default:[]
+    },
+    bordered:{
+      default:false
+    },
+    rightIcon:{
+      default:"xiangyou"
+    }
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    toPage(e){
+      if( e.toPage == "" ){
+        return this.toDeveloping();
+      }else{
+        ui.navigateTo({
+          url: e.toPage
+        })
+      }
+    }
+  },
+  computed:{
+    
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="less">
+.hImg{
+  width: 38rpx;
+  height: 38rpx;
+  >img{
+
+  }
+}
+</style>

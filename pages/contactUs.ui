@@ -16,13 +16,13 @@
     </ui-row>
     <ui-row class="txt">
       <ui-col>
-        <ui-view style="">
+        <ui-view style="height: 30px;line-height: 30px;" bindtap="calling" data-phone="0573-88888888">
           <ui-icon type="myWx-phone" size="22"></ui-icon>
-          <ui-text class="tit0" style="">0573-88888888</ui-text>
+          <ui-text class="tit1" style="">0573-88888888</ui-text>
         </ui-view>
-        <ui-view style="">
+        <ui-view style="height: 30px;line-height: 30px;">
           <ui-icon type="myWx-weizhi" size="22"></ui-icon>
-          <ui-text class="tit1" style="">浙江省海宁市马桥街道创智大厦8F</ui-text>
+          <ui-text class="tit1" style="vertical-align:top;">浙江省海宁市马桥街道创智大厦8F</ui-text>
         </ui-view>        
       </ui-col>
     </ui-row>     
@@ -51,6 +51,12 @@ export default {
   methods: {
     toPay(){
 
+    },
+    calling(e){
+      let phone_number = e.currentTarget.dataset.phone
+      ui.makePhoneCall({
+        phoneNumber: phone_number
+      })
     }
   },
   mounted() {
@@ -81,5 +87,10 @@ export default {
   }
   .txt{
     padding:0 20rpx;
+
+  }
+  .tit1{
+    display: inline-block;
+    height: 100%;
   }
 </style>

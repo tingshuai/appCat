@@ -4,43 +4,12 @@
     <ui-view style="" class="title">
       <ui-text class="tit">售后</ui-text>
     </ui-view>
-    <ui-row-list class="whiteBg" style="margin-top: 15px;">
-      <ui-row height="50" border-indent bindtap="aboutUs">
-        <ui-col width="50" vertical-align="middle" align="center">
-          <ui-image mode="aspectFit" src="./static/img/i@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left">关于我们</ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent bindtap="contactUs">
-        <ui-col width="50" vertical-align="middle" align="center">
-          <ui-image mode="aspectFit" src="./static/img/contact@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
-          联系我们
-        </ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-          <ui-image mode="aspectFit" src="./static/img/ii@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
-          售后条款
-        </ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>      
-    </ui-row-list>       
+    <picker-list data-list="{{ dataList }}"></picker-list>
   </ui-page>
 </template>
 <script>
   import navBar from '#/component/navBar'
+  import pickerList from '#/component/pickerList'
   export default {
     config: {
       disableScroll: true,
@@ -48,24 +17,40 @@
       "navigationStyle": "custom",
     },
     components:{
-      navBar
+      navBar,
+      pickerList
     },  
     data () {
       return {
-
+        dataList:[
+          {
+            text:"关于我们",
+            icon:"",
+            src:"./static/img/i@2x.png",
+            rightIcon:"xiangyou",
+            toPage:"/pages/aboutUs"
+          },
+          {
+            text:"联系我们",
+            icon:"",
+            src:"./static/img/contact@2x.png",
+            rightIcon:"xiangyou",
+            toPage:"/pages/contactUs"
+          },
+          {
+            text:"售后管理",
+            icon:"",
+            src:"./static/img/ii@2x.png",
+            rightIcon:"xiangyou",
+            toPage:""
+          }
+        ]
       }
     },
     methods: {
-      aboutUs(){
-        ui.navigateTo({
-          url:`/pages/aboutUs`
-        })            
-      },
-      contactUs(){
-        ui.navigateTo({
-          url:`/pages/contactUs`
-        })            
-      }
+      toDevelop(){
+        return this.toDeveloping();
+      }      
     }
   }
 </script>

@@ -28,13 +28,13 @@
         </ui-col>
       </ui-row>
       <ui-row>
-        <ui-col align="center" space-left="15">
+        <ui-col align="center" space-left="15" bindtap="toDevelop">
           <ui-view class="">
             <ui-image src="./static/img/cat@2x.png"></ui-image>
           </ui-view>
           <ui-view class="item-text">机器猫简介</ui-view>
         </ui-col>
-        <ui-col align="center" space-right="15">
+        <ui-col align="center" space-right="15" bindtap="toDevelop">
           <ui-view class="">
             <ui-image src="./static/img/feirong@2x.png"></ui-image>
           </ui-view>
@@ -95,7 +95,10 @@
       guide(){
         ui.navigateTo({
           url:`/pages/guide`
-        })        
+        })
+      },
+      toDevelop(){
+        return this.toDeveloping();
       }
     },
     mounted() {

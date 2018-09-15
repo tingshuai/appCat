@@ -19,7 +19,9 @@ export default {
       "component/search",
       "pages/guide",
       "pages/aboutUs",
-      "pages/contactUs"
+      "pages/contactUs",
+      "pages/develop",
+      "component/pickerList"
     ],
     "theme": {
       "theme-color": "#FF5D05"

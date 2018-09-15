@@ -17,80 +17,15 @@
         <ui-text class="tit1" style="">清除历史记录</ui-text>
       </ui-col>
     </ui-row>
-    <ui-row-list class="whiteBg" style="margin-top: 15px;" bordered="{{ true }}">
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-          <!-- <ui-icon type="myWx-zhifubao1" size="22" color="#00A0E9"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/i@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left">关于我们</ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-cuo2" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-           <!-- <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/contact@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
-          联系我们
-        </ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-cuo2" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-           <!-- <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/ii@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text" vertical-align="middle" align="left" space-left="5">
-          售后条款
-        </ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-cuo2" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-    </ui-row-list>
-
-    <ui-row-list class="whiteBg" style="margin-top: 15px;">
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-          <!-- <ui-icon type="myWx-zhifubao1" size="22" color="#00A0E9"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/i@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text tit2" vertical-align="middle" align="left">关于我们</ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-           <!-- <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/i@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text tit2" vertical-align="middle" align="left">联系我们</ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-      <ui-row height="50" border-indent>
-        <ui-col width="50" vertical-align="middle" align="center">
-           <!-- <ui-icon type="myWx-weixinzhifu" size="29" color="#00C800"></ui-icon> -->
-          <ui-image mode="aspectFit" src="./static/img/ii@2x.png" class="hImg"></ui-image>
-        </ui-col>
-        <ui-col class="text tit2" vertical-align="middle" align="left">售后条款</ui-col>
-        <ui-col width="30" class="text" vertical-align="middle">
-          <ui-icon type="myWx-xiangyou" size="22"></ui-icon>
-        </ui-col>
-      </ui-row>
-    </ui-row-list>    
+    <picker-list data-list="{{ dataList1 }}"></picker-list>
+    <picker-list data-list="{{ dataList2 }}"></picker-list>
   </ui-page>
 </template>
 <script>
   import navBar from '#/component/navBar'
   import search from '#/component/search'
+  import pickerList from '#/component/pickerList'
+
   export default {
     config: {
       disableScroll: true,
@@ -99,7 +34,8 @@
     },
     components:{
       navBar,
-      search
+      search,
+      pickerList
     },  
     data () {
       return {
@@ -107,7 +43,53 @@
         hartWord:{
           list:["安装指南","产品说明","机器猫","采集参数","新手教程"],
           _index:0
-        }
+        },
+        dataList1:[
+          {
+            text:"关于我们",
+            icon:"",
+            src:"./static/img/i@2x.png",
+            rightIcon:"cuo2",
+            toPage:""
+          },
+          {
+            text:"联系我们",
+            icon:"",
+            src:"./static/img/contact@2x.png",
+            rightIcon:"cuo2",
+            toPage:""
+          },
+          {
+            text:"售后管理",
+            icon:"",
+            src:"./static/img/ii@2x.png",
+            rightIcon:"cuo2",
+            toPage:""
+          }
+        ],
+        dataList2:[
+          {
+            text:"常见问题",
+            icon:"",
+            src:"./static/img/i@2x.png",
+            rightIcon:"xiangyou",
+            toPage:""
+          },
+          {
+            text:"参数说明",
+            icon:"",
+            src:"./static/img/i@2x.png",
+            rightIcon:"xiangyou",
+            toPage:""
+          },
+          {
+            text:"操作手册",
+            icon:"",
+            src:"./static/img/ii@2x.png",
+            rightIcon:"xiangyou",
+            toPage:""
+          }
+        ]
       }
     },
     methods: {
@@ -133,13 +115,6 @@
       font-size: 80rpx;
       font-weight: 500;
     }
-  }
-}
-.hImg{
-  width: 38rpx;
-  height: 38rpx;
-  >img{
-
   }
 }
 .hartWord{
