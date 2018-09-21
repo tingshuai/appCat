@@ -50,7 +50,7 @@
         </ui-row>
       </ui-row-list>
     </ui-view>
-    <btn bindontouch="connect" disabled="{{ disabled }}" text="连接测试"></btn>
+    <btn bindontouch="connect" disabled="{{ disabled }}" text="连接测试" class="myBtn"></btn>
     <pop-picker list-data="{{ listData }}" index="{{ index }}" bindreturnvalue="returnValue" is-show="{{ isShow }}" bindhidepop="hidePop"></pop-picker>
   </ui-page>
 </template>
@@ -210,8 +210,35 @@ export default {
       })        
     },
     connect(){
-      debugger;
-    }   
+      setInterval(()=>{
+        this.connectTest();
+      },5000)
+    },
+    connectTest(){
+      let _qrCode = "";
+      ui.getStorage({
+        key: 'qrCode',
+        success: function (res) {
+          _qrCode = res.data;
+        }
+      })
+      this.http({
+        url:`${_globalData.http_url.equipments}connect/tttt`,
+        method:"GET",
+        cb:{
+          title:'',
+          icon:"success",
+          show:false,
+        },
+        scb(res){
+          if( res.data.status == 200 ){
+            ui.navigateTo({
+              url:`/pages/createModel`
+            })
+          }
+        }
+      })
+    }
   },
   mounted() {
     this.getBrand();
@@ -228,5 +255,8 @@ export default {
     .price{
       font-weight: bold;
     }
+  }
+  .myBtn{
+    margin-top: 60rpx;
   }
 </style>

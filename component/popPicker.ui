@@ -18,15 +18,15 @@ export default {
   props:["isShow","listData","index"],
   data() {
     return {
-      
+      value:""
     }
   },
   methods: {
     handleChange(e){
-     return this.value = e;
+      this.value = e;
     },
     confirm(){
-      this.$emit( "returnvalue",this.value );
+      this.$emit( "returnvalue" , this.value );
       return this.$emit( "hidepop" );
     },
     hidePop(){
@@ -36,12 +36,11 @@ export default {
   computed:{
     show:function(){
       return this.isShow;
-    },
-    value:function(){
-      return this.index;
     }
   },
-  mounted() {}
+  mounted() {
+    this.value = this.index;
+  }
 }
 </script>
 

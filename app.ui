@@ -21,7 +21,11 @@ export default {
       "pages/aboutUs",
       "pages/contactUs",
       "pages/develop",
-      "component/pickerList"
+      "component/pickerList",
+      "pages/createModel",
+      "pages/contactService",
+      "pages/notBuy",
+      "pages/byDone"
     ],
     "theme": {
       "theme-color": "#FF5D05"
@@ -71,7 +75,8 @@ export default {
     return {
       //全局变量
       globalData: {
-        token:'',
+        userMsg:{},
+        mCatMsg:{},
         ...util
       },
       WIN_WIDTH:ui.WIN_WIDTH,
@@ -234,7 +239,14 @@ export default {
 
   },
   mounted () {
-
+    ui.getStorage({
+      key:'userMsg',
+      success(res){
+        if( res.data != null ){
+          ui.getApp().globalData.userMsg = res.data;
+        }
+      }
+    })
   }
 }
 </script>
@@ -301,9 +313,6 @@ export default {
   </ui-slide-menu>
   </ui-view>
 </template>
-
-
-
 <style lang="less">
  @import './static/css/animate.css';
  @import './static/css/loading.less';

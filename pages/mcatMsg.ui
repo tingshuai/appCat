@@ -23,7 +23,7 @@
         <ui-col class="text" vertical-align="middle">
           {{ mCatMsg.moduleNo }}
         </ui-col>
-      </ui-row>      
+      </ui-row>
       <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             生产批次
@@ -61,6 +61,8 @@
 </template>
 <script>
 import navBar from '#/component/navBar'
+let _globalData = ui.getApp().globalData;
+
 export default {
   config: {
     navigationBarTitleText: "M-CAT信息",
@@ -72,8 +74,8 @@ export default {
   data(){
     return {
       title:"M-CAT信息",
-      // nextPage:"/pages/EquipmentInfor",
-      nextPage:"/pages/goToBy",
+      nextPage:"/pages/EquipmentInfor",
+      // nextPage:"/pages/goToBy",
       mCatMsg:{}
     }
   },

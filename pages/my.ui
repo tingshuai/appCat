@@ -10,7 +10,7 @@
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view>
-            <ui-text style="" class="name">卢俊义</ui-text>
+            <ui-text style="" class="name">{{ userMsg.username || '**'}}</ui-text>
             <ui-text style="">产品经理</ui-text>
           </ui-view>
           <ui-view>13585462578</ui-view>
@@ -33,29 +33,50 @@
     components:{
       navBar,
       pickerList
-    },  
+    },
     data () {
       return {
         contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
         title:"我",
         nextPage:"",
-        dataList:[
+        userMsg:{}
+      }
+    },
+    mounted(){
+
+    },
+    computed:{
+      dataList:function(){
+        return [
           {
-            text:"支付宝",
+            text:"帮助文档",
             icon:"",
             src:"./static/img/file@2x.png",
             rightIcon:"xiangyou",
             toPage:""
           },
           {
-            text:"微信支付",
-            icon:"",
-            src:"./static/img/setting@2x.png",
+            text:('userId' in this.userMsg) ? "微信支付" : '登录',
+            icon:('userId' in this.userMsg) ? '' : 'denglu3',
+            src:('userId' in this.userMsg) ? "./static/img/setting@2x.png" : "",
             rightIcon:"xiangyou",
-            toPage:""
+            toPage:('userId' in this.userMsg) ? '' : "EquipmentInfor"
           }          
         ]
       }
+    },
+    created(){
+      let that = this;
+      ui.getStorage({
+        key: 'userMsg',
+        success: function (res) {
+          console.log(res.data)
+          if( res.data != null ){
+            // that.userMsg = res.data;
+          }
+        },
+        fail(res){}
+      })
     },
     methods: {
       

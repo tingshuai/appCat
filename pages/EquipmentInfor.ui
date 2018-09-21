@@ -1,7 +1,7 @@
 <!--undefined-->
 <template>
-  <ui-page>
-    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+  <ui-page show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}" event="{{ true }}" bindevent="nextStep"></nav-bar>
     <ui-row-list>
       <ui-row height="50" border-indent ui:for="{{ formList }}" ui:if="{{ item.type == 'input' }}">
         <ui-col width="70" vertical-align="middle" align="left" space-left="10">
@@ -29,7 +29,7 @@
     <ui-popup ui:model="{{pop.show}}">
         <ui-v-calendar ui:if="{{pop.show}}" value="{{ pop.value }}" bindchange="selectedChange"></ui-v-calendar>
     </ui-popup>
-    <btn text="确认" bindontouch="submit"></btn>
+    <!-- <btn text="确认" bindontouch="submit"></btn> -->
   </ui-page>
 </template>
 <script>
@@ -50,8 +50,9 @@ export default {
   data() {
     return {
       title:"设备信息",
-      nextPage:"/pages/ConnectionMode",
+      nextPage:"/pages/byDone",
       showDate:false,
+      isloading:true,
       pop:{
         show:false,
         value:""
@@ -60,83 +61,54 @@ export default {
         {
           lebal:"品牌",
           name:"manufactory",
-          value:"",
+          value:"华发",
           type:"input"
         },
         {
           lebal:"模型名称",
           name:"modelName",
-          value:"",
+          value:"/经编机/卡尔迈耶/TM3",
           type:"input"
         },
         {
           lebal:"出厂日期",
           name:"produceDate",
-          value:`2015-5-5`,
+          value:`2018-09-19`,
           type:"date",
         },
         {
           lebal:"型号",
           name:"spec",
-          value:"",
+          value:"规格1",
           type:"input",
-        },
-        {
-          lebal:"用户ID",
-          name:"userId",
-          value:"",
-          type:"input",
-        }        
+        }
       ]
     }
   },
   computed:{
     rules:function(){//登录验证信息.......
-      return [{
-              value:this.formList[0].value,
-              fieldName:this.formList[0].name,
-              name:this.formList[0].lebal,
+      let _formList = [];
+      this.formList.filter((val)=>{
+        _formList.push({
+              value:val.value || '',
+              fieldName:val.name,
+              name:val.lebal,
               regExp:'',
               tip:"",
               require:true
-            },
-            {
-              value:this.formList[1].value,
-              fieldName:this.formList[1].name,
-              name:this.formList[1].lebal,
-              regExp:'',
-              tip:"",
-              require:true
-            },
-            {
-              value:this.formList[2].value,
-              fieldName:this.formList[2].name,
-              name:this.formList[2].lebal,
-              regExp:'',
-              tip:"",
-              require:true
-            },
-            {
-              value:this.formList[3].value,
-              fieldName:this.formList[3].name,
-              name:this.formList[3].lebal,
-              regExp:'',
-              tip:"",
-              require:true
-            },
-            {
-              value:this.formList[4].value,
-              fieldName:this.formList[4].name,
-              name:this.formList[4].lebal,
-              regExp:'',
-              tip:"",
-              require:true
-            }]
+        })
+      })
+      return _formList;
     }
   },  
   methods: {
     handleChange(){
 
+    },
+    nextStep(){
+      this.isloading = true;
+      this.submit();
+      return;
     },
     selectMyDate(e){
       this.pop.show = true;
@@ -148,7 +120,7 @@ export default {
     cDate(e,date){
       debugger;
     },
-    submit(e){
+    submit(){
         let that = this;
         let formVali = this.formValidate( that.rules ).filter((val)=>{
           return val.isRight == false;
@@ -158,6 +130,7 @@ export default {
           this.formList.forEach((val,i,arr)=>{
             _param[val.name] = val.value;
           })
+          _param.userId =  _globalData.userMsg.userId
           this.http({
             url:`${_globalData.http_url.models}check`,
             params:JSON.stringify(_param),
@@ -167,13 +140,35 @@ export default {
               show:false
             },
             scb(res){
-              debugger;
+              if( res.data.data.length == 0 ){//没有查到
+                  ui.showToast({ 
+                    title: "未查找到相关内容",
+                    icon:'none',
+                    duration:1500
+                  })
+              }else{
+                ui.navigateTo({
+                  url:`${that.nextPage}?modelMsg=${JSON.stringify(res.data.data)}`
+                })
+              }
+              this.isloading = false;
+            },
+            fcb(res){
             }
           })
+        }else{
+          ui.showToast({ 
+            title: `${formVali[0].tip}`,
+            icon:"none",
+            duration:1500
+          })          
         }
     }
   },
-  mounted() {}
+  mounted() {
+    this.rules;
+    this.isloading = false;
+  }
 }
 </script>
 

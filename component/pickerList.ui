@@ -3,7 +3,7 @@
     <ui-row-list class="whiteBg" style="margin-top: 15px;">
       <ui-row height="50" border-indent ui:for="{{ dataList }}" bindtap="toPage(item)" data-item = "{{ item }}">
         <ui-col width="50" vertical-align="middle" align="center">
-          <ui-icon type="myWx-{{ item.icon }}" size="22" ui:if="{{ item.icon != '' }}" color="#00A0E9"></ui-icon>
+          <ui-icon type="myWx-{{ item.icon }}" size="23" ui:if="{{ item.icon != '' }}" color="#00A0E9"></ui-icon>
           <ui-image mode="aspectFit" ui:if="{{ item.src != '' }}" src="{{ item.src }}" class="hImg"></ui-image>
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="left">{{ item.text }}</ui-col>

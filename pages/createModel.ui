@@ -1,0 +1,92 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list>
+    <ui-view style="" class="warn">
+      <!-- <ui-icon type="myWx-gantanhao2" size="22" style="color:red;"></ui-icon> -->
+      <ui-text class="" style="vertical-align: top;display: inline-block;height: 100%;">请联系客服人员为您定制模型</ui-text>
+    </ui-view>
+    <ui-view style="margin-top:10px;">
+      <btn bindontouch="contactService" disabled="{{ disabled }}"  text="联系客服"></btn>
+      <!-- <btn bindontouch="contact" disabled="{{ disabled }}" plain="{{ true }}" text="联系客服"></btn> -->
+    </ui-view>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+export default {
+  config: {
+    navigationBarTitleText: "",
+    "navigationStyle": "custom"
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"创建模型",
+      nextPage:"",
+      mCatMsg:{},
+      listTitle:"设备信息",//
+      disabled:false,
+      dataList:[
+        {
+          name:"设备编号",
+          value:"F03333"
+        },{
+          name:"设备名称",
+          value:"内燃机设备"
+        },{
+          name:"品牌名称",
+          value:"飞讯牌"
+        },{
+          name:"生产型号",
+          value:"SZ89888"
+        },{
+          name:"生产厂家",
+          value:"深圳*****公司"
+        },{
+          name:"出厂日期",
+          value:"2015-8-8"
+        },{
+          name:"控制器型号",
+          value:"PLC999999"
+        },{
+          name:"配置参数",
+          value:"F03333"
+        }
+      ]
+    }
+  },
+  methods: {
+    toBy(){
+
+    },
+    contactService(){
+      ui.navigateTo({
+        url:`/pages/contactService`
+      })      
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+<style lang="less">
+  .hImg{
+    // height: 100%;
+  }
+  .warn{
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 40px; 
+  }
+</style>

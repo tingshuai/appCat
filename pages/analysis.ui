@@ -41,6 +41,8 @@
 import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import btn from '#/component/btn'
+let _globalData = ui.getApp().globalData;
+
 export default {
   config: {
     navigationBarTitleText: "undefined"
@@ -60,9 +62,34 @@ export default {
   methods: {
     handleChange(){
 
-    }
+    },
+    connectTest(){
+      let _qrCode = "";
+      ui.getStorage({
+        key: 'qrCode',
+        success: function (res) {
+          _qrCode = res.data;
+        }
+      })
+      this.http({
+        url:`${_globalData.http_url.equipments}connect/tttt`,
+        method:"GET",
+        cb:{
+          title:'',
+          icon:"success",
+          show:false,
+        },
+        scb(res){
+          console.log( res )
+        }
+      })
+    }    
   },
-  mounted() {}
+  mounted() {
+    setInterval(()=>{
+      this.connectTest();
+    },5000)
+  }
 }
 </script>
 

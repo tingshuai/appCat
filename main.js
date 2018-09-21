@@ -35,7 +35,7 @@ ui.extend({
     obj.url = obj.url || '';
     obj.params = obj.params || '';
     obj.contentType = obj.contentType || 'application/json'
-    obj.token = ui.getApp().globalData.token;
+    obj.token = ui.getApp().globalData.userMsg.token;
     ui.getStorage({
       key: 'token',
       success: function (res) {
@@ -51,13 +51,17 @@ ui.extend({
         setTimeout(()=>{
           obj.scb(res);
           if( res.data.status == 500 ){
-            ui.showToast({ 
-              title: res.data.message,
-              icon:'none',
-              duration:1000
-            })
+            if(obj.cb.show){
+              ui.showToast({
+                title: res.data.message,
+                icon:'none',
+                duration:1000
+              })
+            }            
           }else{
-            uiTit( obj.cb );
+            if(obj.cb.show){
+              uiTit( obj.cb );
+            }
           }
         },obj.cb.duration)
       },
@@ -91,7 +95,7 @@ ui.extend({
         "index" : ii
       })
     }
-    obj.filter((val,i,arr)=>{
+    obj.forEach((val,i,arr)=>{
       if( val.require == true && val.value == ''){
         val.tip = val.name + "不能为空";
         return rtValue(val,i);

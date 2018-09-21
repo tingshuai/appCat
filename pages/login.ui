@@ -1,10 +1,11 @@
 <template>
   <ui-page>
-    <ui-nav-bar slot="nav-bar">
+    <!-- <ui-nav-bar slot="nav-bar">
       <ui-row style="height: 46px;">
       </ui-row>
-    </ui-nav-bar>
+    </ui-nav-bar> -->
     <ui-view class="login">
+      <ui-icon type="myWx-cuo2" size="22" class="cancle" bindtap="cancel"></ui-icon>
       <ui-view class="login-header">
         用户登录
       </ui-view>
@@ -36,8 +37,8 @@
     },
     data() {
       return {
-        phone: '',
-        password: '',
+        phone: '13500000000',
+        password: '123456',
       }
     },
     computed:{
@@ -67,6 +68,11 @@
 
     },
     methods: {
+      cancel(){
+        ui.switchTab({
+          url: '/pages/my'
+        })
+      },
       getClass(val){//实时验证.......
         return this.formValidate( this.rules )[val].isRight == true ? [] : ['error'];
       },
@@ -87,13 +93,13 @@
             },
             scb(res){
               if( res.data.status == 200 ){
-                app.globalData.token = res.data.data.accessToken;
+                app.globalData.userMsg = res.data.data;
                 ui.setStorage({
-                  key: "token",
-                  data: res.data.data.accessToken
+                  key: "userMsg",
+                  data: res.data.data
                 })
                 ui.redirectTo({
-                  url: '/pages/home'
+                  url: '/pages/my'
                 })
               }
             }
@@ -172,5 +178,11 @@
     .retrieve-password {
       margin-right: 52rpx;
     }
+  }
+  .cancle{
+    font-size: 22px;
+    top: 10px;
+    left: 15px;
+    position: relative;    
   }
 </style>

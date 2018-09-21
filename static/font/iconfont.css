@@ -12,11 +12,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.icon-search:before { content: "\e64c"; }
-
-.icon-add:before { content: "\e62a"; }
-.icon-cuo:before { content: "\e664"; }
-
 .icon-myWx-cuo:before { content: "\e664"; }
 
 .icon-myWx-qianjin:before { content: "\e652"; }
@@ -161,6 +156,8 @@
 
 .icon-myWx-doc1:before { content: "\e605"; }
 
+.icon-myWx-login:before { content: "\e683"; }
+
 .icon-myWx-yunxiangmugongdanweixintubiao-:before { content: "\e642"; }
 
 .icon-myWx-yunxiangmugongdanweixintubiao-1:before { content: "\e643"; }
@@ -238,6 +235,8 @@
 .icon-myWx-yuyintonghua1:before { content: "\e635"; }
 
 .icon-myWx-bianji:before { content: "\e654"; }
+
+.icon-myWx-denglu:before { content: "\e686"; }
 
 .icon-myWx-file-close:before { content: "\e632"; }
 
@@ -353,6 +352,10 @@
 
 .icon-myWx-haikezhangguizhushou_yinlianzhifu:before { content: "\e67d"; }
 
+.icon-myWx-denglu1:before { content: "\e687"; }
+
+.icon-myWx-denglu2:before { content: "\e689"; }
+
 .icon-myWx-file-unknown:before { content: "\e78b"; }
 
 .icon-myWx-fasong4:before { content: "\e65b"; }
@@ -368,6 +371,10 @@
 .icon-myWx-dui3:before { content: "\e672"; }
 
 .icon-myWx-gantanhao4:before { content: "\e676"; }
+
+.icon-myWx-denglu3:before { content: "\e68b"; }
+
+
 
 
 

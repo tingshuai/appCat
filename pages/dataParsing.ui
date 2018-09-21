@@ -21,7 +21,7 @@
         </ui-row>
       </ui-row-list>
     </ui-view>
-    <btn bindontouch="connect" disabled="{{ disabled }}" text="开始解析" style="margin:15px 0;"></btn>
+    <btn bindontouch="analysis" disabled="{{ disabled }}" text="开始解析" style="margin:15px 0;"></btn>
   </ui-page>
 </template>
 <script>
@@ -32,7 +32,7 @@ import btn from '#/component/btn'
 let _globalData = ui.getApp().globalData;
 export default {
   config: {
-    navigationBarTitleText: "undefined",
+    navigationBarTitleText: "",
     backgroundColor:"#e5e5e5",
   },
   components:{
@@ -61,8 +61,43 @@ export default {
     }
   },
   methods: {
-    connect(){
-
+    analysis(){
+      let _list = this.list.filter((item)=>{
+        if( item.name != '' && item.value != ''){
+          return item;
+        }
+      })
+      if( _list.length == 0 ){
+        ui.showToast({ 
+          title: "请填写解析字段",
+          icon:'none',
+          duration:1500
+        })
+      }else{
+        let _param={
+          equipmentId:"",
+          fieldJsonArr:[]
+        };
+        _list.forEach((val,i,arr)=>{
+          _param.push({'parameterNameCn':val.name,'parameterNameEn':val.value})
+        })
+        _param.fieldJsonArr =JSON.stringify(_param.fieldJsonArr);
+        this.http({
+          url:`${_globalData.http_url.equipments}connect/parseField`,
+          method:"POST",
+          params:_param,
+          cb:{
+            title:'',
+            icon:"success",
+            show:false,
+          },
+          scb(res){
+            if( res.data.status == 200 ){
+              debugger;
+            }
+          }
+        })
+      }
     }
   },
   mounted() {

@@ -1,0 +1,102 @@
+<!--undefined-->
+<template>
+  <ui-page>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list>
+    <text-list data-list="{{ mCatMsgList }}" title="{{ mCatMsg }}"></text-list>
+    <!-- <ui-view style="" class="warn">
+      <ui-icon type="myWx-gantanhao2" size="22" style="color:red;"></ui-icon>
+      <ui-text class="" style="vertical-align: top;display: inline-block;height: 100%;">您尚未购买与设备匹配的该模型</ui-text>
+    </ui-view> -->
+    <!-- <ui-view style="margin-top:10px;">
+      <btn bindontouch="toBy" disabled="{{ disabled }}"  text="购买模型"></btn>
+      <btn bindontouch="contact" disabled="{{ disabled }}" plain="{{ true }}" text="联系客服"></btn>
+    </ui-view> -->
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+import textList from '#/component/textList'
+import btn from '#/component/btn'
+let _globalData = ui.getApp().globalData;
+export default {
+  config: {
+    navigationBarTitleText: "模型未购买",
+    "navigationStyle": "custom"
+  },
+  components:{
+    navBar,
+    textList,
+    btn
+  },
+  data(){
+    return {
+      title:"设备绑定",
+      nextPage:"/pages/dataParsing",
+      mCatMsg:{},
+      listTitle:"设备信息",//
+      mCatMsg:"M-Cat",
+      disabled:false,
+      dataList:[],//模型信息.....
+      mCatMsgList:[]//机器猫的信息
+    }
+  },
+  methods: {
+    toBy(){
+
+    },
+    contact(){
+
+    }
+  },
+  mounted() {
+    let modelMsg = JSON.parse( this.$route.query.modelMsg );
+    modelMsg.forEach((val,i,arr)=>{
+      this.dataList.push({
+        "name":"品牌",
+        "value":val.factory
+      },{
+        "name":"模型名称",
+        "value":val.modelName
+      },{
+        "name":"模型类型",
+        "value":val.modelType
+      },{
+        "name":"出厂日期",
+        "value":val.produceDate
+      },{
+        "name":"型号",
+        "value":val.spec
+      })
+    });
+    this.mCatMsgList.push(
+      {name:"硬件版本",value:_globalData.mCatMsg.hardwareVersion},
+      {name:"模组编号",value:_globalData.mCatMsg.moduleNo},
+      {name:"生产批次",value:_globalData.mCatMsg.productionBatch},
+      {name:"软件版本",value:_globalData.mCatMsg.softwareVersion},
+      {name:"日期",value:`${_globalData.mCatMsg.year}年${_globalData.mCatMsg.month}月`}
+    )
+  }
+}
+</script>
+
+<style lang="less">
+  .hImg{
+    // height: 100%;
+  }
+  .warn{
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 40px; 
+  }
+  .tit{
+    font-size:20px;
+    font-family:"PingFang-SC-Bold";
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    .ui-col-content{
+      font-weight: bold;
+    }
+  }  
+</style>
