@@ -39,7 +39,14 @@
         contentHeight: ui.DEFAULT_CONTENT_HEIGHT,
         title:"我",
         nextPage:"",
-        userMsg:{}
+        userMsg:{},
+        pageLoad:{
+          trigger:'always',
+          handle:()=>{
+            let getData=ui.getQuery()
+            this.getUserMsg();            
+          }
+        }
       }
     },
     mounted(){
@@ -60,26 +67,27 @@
             icon:('userId' in this.userMsg) ? '' : 'denglu3',
             src:('userId' in this.userMsg) ? "./static/img/setting@2x.png" : "",
             rightIcon:"xiangyou",
-            toPage:('userId' in this.userMsg) ? '' : "EquipmentInfor"
+            toPage:('userId' in this.userMsg) ? '' : "login"
           }          
         ]
       }
     },
     created(){
-      let that = this;
-      ui.getStorage({
-        key: 'userMsg',
-        success: function (res) {
-          console.log(res.data)
-          if( res.data != null ){
-            // that.userMsg = res.data;
-          }
-        },
-        fail(res){}
-      })
+      this.getUserMsg();
     },
     methods: {
-      
+      getUserMsg(){
+        let that = this;
+        ui.getStorage({
+          key: 'userMsg',
+          success: function (res) {
+            if( res.data != null ){
+              that.userMsg = res.data;
+            }
+          },
+          fail(res){}
+        })
+      }
     }
   }
 </script>

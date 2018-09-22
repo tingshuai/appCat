@@ -70,11 +70,9 @@ export default {
       })
     });
     this.mCatMsgList.push(
-      {name:"硬件版本",value:_globalData.mCatMsg.hardwareVersion},
       {name:"模组编号",value:_globalData.mCatMsg.moduleNo},
       {name:"生产批次",value:_globalData.mCatMsg.productionBatch},
-      {name:"软件版本",value:_globalData.mCatMsg.softwareVersion},
-      {name:"日期",value:`${_globalData.mCatMsg.year}年${_globalData.mCatMsg.month}月`}
+      {name:"手机号",value:_globalData.mCatMsg.phoneNo},
     )
   }
 }

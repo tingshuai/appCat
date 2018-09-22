@@ -8,14 +8,14 @@
       </ui-col>
     </ui-row>
     <ui-row-list border-indent>
-      <ui-row height="50">
+      <!-- <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             硬件版本
         </ui-col>
         <ui-col class="text" vertical-align="middle">
           {{ mCatMsg.hardwareVersion }}
         </ui-col>
-      </ui-row>
+      </ui-row> -->
       <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             模组编号
@@ -32,7 +32,7 @@
           {{ mCatMsg.productionBatch }}
         </ui-col>
       </ui-row>    
-      <ui-row height="50">
+      <!-- <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             软件版本
         </ui-col>
@@ -47,13 +47,13 @@
         <ui-col class="text" vertical-align="middle">
           {{ mCatMsg.unitType }}
         </ui-col>
-      </ui-row>
+      </ui-row> -->
       <ui-row height="50">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
-            日期
+            电话号码
         </ui-col>
         <ui-col class="text" vertical-align="middle">
-          {{ mCatMsg.year }}年{{ mCatMsg.month }}月
+          {{ mCatMsg.phoneNo }}
         </ui-col>
       </ui-row>                    
     </ui-row-list>
@@ -74,7 +74,7 @@ export default {
   data(){
     return {
       title:"M-CAT信息",
-      nextPage:"/pages/EquipmentInfor",
+      nextPage:"/pages/deviceMsg",
       // nextPage:"/pages/goToBy",
       mCatMsg:{}
     }

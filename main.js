@@ -37,9 +37,9 @@ ui.extend({
     obj.contentType = obj.contentType || 'application/json'
     obj.token = ui.getApp().globalData.userMsg.token;
     ui.getStorage({
-      key: 'token',
+      key: 'userMsg',
       success: function (res) {
-        obj.token = res.data;
+        obj.token = res.data.accessToken;
       }
     })
     ui.request({

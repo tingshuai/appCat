@@ -1,6 +1,6 @@
 <!--undefined-->
 <template>
-  <ui-page class="grayBg">
+  <ui-page class="grayBg" show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <ui-view>
       <ui-row-list border-indent class="whiteBg">
@@ -60,8 +60,14 @@ export default {
       ]
     }
   },
+  computed:{
+    isloading:function(){
+      return _globalData.loading;
+    },
+  },
   methods: {
     analysis(){
+      _globalData.loading = true;
       let _list = this.list.filter((item)=>{
         if( item.name != '' && item.value != ''){
           return item;
@@ -73,17 +79,18 @@ export default {
           icon:'none',
           duration:1500
         })
+        return;
       }else{
         let _param={
-          equipmentId:"",
+          equipmentId:_globalData.deviceMsg.id || '',
           fieldJsonArr:[]
         };
         _list.forEach((val,i,arr)=>{
-          _param.push({'parameterNameCn':val.name,'parameterNameEn':val.value})
+          _param.fieldJsonArr.push({'parameterNameCn':val.name,'parameterNameEn':val.value})
         })
-        _param.fieldJsonArr =JSON.stringify(_param.fieldJsonArr);
+        _param.fieldJsonArr = JSON.stringify(_param.fieldJsonArr);
         this.http({
-          url:`${_globalData.http_url.equipments}connect/parseField`,
+          url:`${_globalData.http_url.equipments}/parseField`,
           method:"POST",
           params:_param,
           cb:{
@@ -92,11 +99,15 @@ export default {
             show:false,
           },
           scb(res){
-            if( res.data.status == 200 ){
-              debugger;
-            }
+            ui.showToast({ 
+              title: res.data.message,
+              icon:'none',
+              duration:1500
+            })
+            _globalData.loading = false;
           }
         })
+        return ;
       }
     }
   },

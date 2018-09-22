@@ -1,0 +1,190 @@
+<!--undefined-->
+<template>
+  <ui-page show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <ui-text class="" style="vertical-align: top;display:block;height: 100%;text-align:center;margin:150px 0;" ui:if="{{ !mCatMsg.show }}">{{ mCatMsg.message }}</ui-text>
+    <!-- <ui-row height="200" ui:if="{{ !mCatMsg.show }}">
+      <ui-col align="center" vertical-align="middle">
+        <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
+      </ui-col>
+    </ui-row> -->
+    <ui-row-list border-indent ui:if="{{ mCatMsg.show }}">
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            版本编号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.versionCode }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备型号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.unitType }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备名称
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.equipmentName }}
+        </ui-col>
+      </ui-row>    
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产厂家
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.manufacturer }}
+        </ui-col>
+      </ui-row> 
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产批次
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.productionBatch }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产年月
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.productionDate }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            手机串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.phoneNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模组串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.moduleNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模板ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.templateId }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            采集协议
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.collectionProtocol }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            使用状态
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.state }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模型ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.modelId }}
+        </ui-col>
+      </ui-row>        
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            解析字段
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.parseField }}
+        </ui-col>
+      </ui-row>                            
+    </ui-row-list>
+  </ui-page>
+</template>
+<script>
+import navBar from '#/component/navBar'
+let _globalData = ui.getApp().globalData;
+export default {
+  config: {
+    navigationBarTitleText: "M-CAT信息",
+    "navigationStyle": "custom"
+  },
+  components:{
+    navBar
+  },
+  data(){
+    return {
+      title:"设备信息",
+      nextPage:"/pages/EquipmentInfor",
+      // nextPage:"/pages/goToBy",
+      mCatMsg:{
+        show:true,
+        message:"你购买的非本公司产品"
+      }
+    }
+  },
+  methods: {
+    getDeviceMsg(){
+          let that = this;
+          this.http({
+            url:`${_globalData.http_url.equipments}check/${_globalData.mCatMsg.qrCode}`,
+            method:'GET',
+            cb:{
+              title:'',
+              icon:"success",
+              show:false
+            },
+            scb(res){
+              let _resData = res.data;
+              _globalData.loading = false;
+              if( _resData.status == 200 ){
+                that.mCatMsg = _resData.data;
+                _globalData.deviceMsg = _resData.data;
+                that.mCatMsg.show = true;
+              }else{
+                that.mCatMsg.show = false;
+                that.mCatMsg.message = _resData.message;
+                ui.showToast({ 
+                  title: res.data.message,
+                  icon:'none',
+                  duration:1500
+                })
+              }
+            },
+            fcb(res){
+            }
+          })      
+    }
+  },
+  computed:{
+    isloading:function(){
+      return _globalData.loading;
+    }
+  },
+  mounted() {
+    _globalData.loading = true;
+    this.getDeviceMsg();
+  }
+}
+</script>
+
+<style lang="less">
+  .hImg{
+    // height: 100%;
+  }
+</style>

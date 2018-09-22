@@ -49,8 +49,8 @@ export default {
   },
   data() {
     return {
-      title:"设备信息",
-      nextPage:"/pages/byDone",
+      title:"模型检查",
+      nextPage:"/pages/deviceBinding",
       showDate:false,
       isloading:true,
       pop:{
