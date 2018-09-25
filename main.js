@@ -43,7 +43,7 @@ ui.extend({
       }
     })
     ui.request({
-      url: `${obj.url}`, //仅为示例，并非真实的接口地址
+      url: `${obj.url}`, 
       data: obj.params,
       method:`${obj.method}`,
       header: {'content-type': obj.contentType,"token":obj.token},
@@ -57,7 +57,7 @@ ui.extend({
                 icon:'none',
                 duration:1000
               })
-            }            
+            }
           }else{
             if(obj.cb.show){
               uiTit( obj.cb );
@@ -67,11 +67,11 @@ ui.extend({
       },
       fail(res){
         uiTit( obj.cb );
-        ui.showToast({ 
-          title: "请求失败",
-          icon:'none',
-          duration:1500
-        })
+          ui.showToast({
+            title: "请先登录",
+            icon:'none',
+            duration:1500
+          })
       }
     })
   },

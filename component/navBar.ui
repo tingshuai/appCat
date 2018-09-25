@@ -68,6 +68,6 @@ export default {
     height: 100%;
     vertical-align: top;
     display: inline-block;
-    line-height: 85rpx;
+    // line-height: 85rpx;
   }
 </style>

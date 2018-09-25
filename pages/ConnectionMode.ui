@@ -210,8 +210,14 @@ export default {
       })        
     },
     connect(){
-      setInterval(()=>{
-        this.connectTest();
+      let _ii = 0;
+      let inter = setInterval(()=>{
+        _ii ++;
+        if( _ii <= 5 ){
+          this.connectTest();
+        }else{
+          clearInterval( inter )
+        }
       },5000)
     },
     connectTest(){

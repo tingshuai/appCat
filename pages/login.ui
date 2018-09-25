@@ -69,9 +69,7 @@
     },
     methods: {
       cancel(){
-        ui.switchTab({
-          url: '/pages/my'
-        })
+        ui.navigateBack();
       },
       getClass(val){//实时验证.......
         return this.formValidate( this.rules )[val].isRight == true ? [] : ['error'];
