@@ -1,4 +1,5 @@
 import app from './app.ui'
+import { debug } from 'util';
 let options = {
   app: app
 }
@@ -35,7 +36,7 @@ ui.extend({
     obj.url = obj.url || '';
     obj.params = obj.params || '';
     obj.contentType = obj.contentType || 'application/json'
-    obj.token = ui.getApp().globalData.userMsg.token;
+    obj.token = ui.getApp().globalData.userMsg.token || '';
     ui.getStorage({
       key: 'userMsg',
       success: function (res) {
@@ -58,7 +59,13 @@ ui.extend({
                 duration:1000
               })
             }
-          }else{
+          }else if(res.data.status == 401){
+            ui.showToast({
+              title: `${res.data.message},请先登录。`,
+              icon:'none',
+              duration:1500
+            })           
+          }else{            
             if(obj.cb.show){
               uiTit( obj.cb );
             }
@@ -66,12 +73,8 @@ ui.extend({
         },obj.cb.duration)
       },
       fail(res){
-        uiTit( obj.cb );
-          ui.showToast({
-            title: "请先登录",
-            icon:'none',
-            duration:1500
-          })
+        ui.hideLoading()
+        uiTit( obj.cb );//执行回调
       }
     })
   },

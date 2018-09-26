@@ -10,15 +10,15 @@
         </ui-col>
         <ui-col vertical-align="middle" align="left">
           <ui-view>
-            <ui-text style="" class="name">{{ userMsg.username || '**'}}</ui-text>
-            <ui-text style="">产品经理</ui-text>
+            <ui-text style="" class="name">{{ userMsg.username || '***'}}</ui-text>
+            <ui-text style="">{{ userMsg.position || '***' }}</ui-text>
           </ui-view>
-          <ui-view>13585462578</ui-view>
+          <ui-view>{{ userMsg.phone || '***' }}</ui-view>
         </ui-col>
       </ui-row>
-      <ui-view class="company">上海飞讯制造生产有限公司</ui-view>
+      <ui-view class="company">{{ userMsg.company || '***'}}</ui-view>
     </ui-view>
-    <picker-list data-list="{{ dataList }}"></picker-list>
+    <picker-list data-list="{{ dataList }}" bindmy-event="myEvent"></picker-list>
   </ui-page>
 </template>
 <script>
@@ -63,10 +63,11 @@
             toPage:""
           },
           {
-            text:('userId' in this.userMsg) ? "微信支付" : '登录',
-            icon:('userId' in this.userMsg) ? '' : 'denglu3',
-            src:('userId' in this.userMsg) ? "./static/img/setting@2x.png" : "",
+            text:('userId' in this.userMsg) ? "退出" : '登录',
+            icon:('userId' in this.userMsg) ? 'tuichu1' : 'denglu3',
+            src:('userId' in this.userMsg) ? "" : "",
             rightIcon:"xiangyou",
+            event:true,
             toPage:('userId' in this.userMsg) ? '' : "login"
           }          
         ]
@@ -83,9 +84,44 @@
           success: function (res) {
             if( res.data != null ){
               that.userMsg = res.data;
+            }else{
+              that.userMsg = {}
             }
           },
-          fail(res){}
+          fail(res){
+            that.userMsg = {}
+          }
+        })
+      },
+      myEvent(){
+        let that = this;
+        this.http({
+          url:`${ui.getApp().globalData.http_url.cas}logout`,
+          method:"POST",
+          cb:{
+            title:'退出成功',
+            icon:"success",
+            show:false,
+          },
+          scb(res){
+            ui.showConfirm({
+              content: '你确定要退出吗？',
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              success (result) {
+                if( result.confirm ){
+                  ui.removeStorage({
+                    key: 'userMsg',
+                    success (res) {
+                      ui.getApp().globalData.userMsg = {};
+                      that.getUserMsg();
+                      ui.showToast({title: '退出成功'});
+                    }
+                  })
+                }
+              }
+            })
+          }
         })
       }
     }

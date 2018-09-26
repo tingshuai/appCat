@@ -38,7 +38,13 @@ export default {
   methods: {
     toPage(e){
       if( e.toPage == "" ){
-        return this.toDeveloping();
+        if( e.event == true ){
+          this.$emit('my-event')
+        }else{          
+          ui.navigateTo({
+            url: `/pages/develop`
+          })
+        }
       }else{
         ui.navigateTo({
           url: e.toPage

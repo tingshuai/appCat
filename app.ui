@@ -395,5 +395,7 @@ body {
 .whiteBg{
   background-color:white;
 }
-
+.ui-slideout-panel{
+  height: 100%;
+}
 </style>

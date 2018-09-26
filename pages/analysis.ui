@@ -1,39 +1,21 @@
 <template>
   <ui-page>
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
-    <ui-view class="sample_content">
+    <!-- <ui-view class="sample_content">
       <ui-progress percent="70" show-info active stroke-width="18" active-color="#ff4949"></ui-progress>
-    </ui-view>
+    </ui-view> -->
     <ui-row-list>
-      <ui-row height="60" space-top="15">
+      <ui-row height="60" space-top="15" ui:for="{{ parseData }}">
         <ui-col width="80" vertical-align="top" align="right">
             <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
         </ui-col>
         <ui-col class="text" space-left="25">
-          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
-          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
+          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数{{ item.parameterNameEn }}正常</ui-text>
+          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数名：{{ item.parameterNameCn }}</ui-text>
         </ui-col>
       </ui-row>
-      <ui-row height="60" space-top="15">
-        <ui-col width="80" vertical-align="top" align="right">
-            <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
-        </ui-col>
-        <ui-col class="text" space-left="25">
-          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
-          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
-        </ui-col>
-      </ui-row>
-      <ui-row height="60" space-top="15">
-        <ui-col width="80" vertical-align="top" align="right">
-            <ui-icon type="myWx-dui" size="20" color="#1BBF36"></ui-icon>
-        </ui-col>
-        <ui-col class="text" space-left="25">
-          <ui-text class="slide-title" style="font-size:17px;color:rgba(51,51,51,1);font-weight:500;">参数1解析正常</ui-text>
-          <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);">参数代码：UC</ui-text>
-        </ui-col>
-      </ui-row>
-      <ui-text class="slide-title" style="font-size:12px;color:rgba(153,153,153,1);padding-left:50px;">参数正常，解析成功.</ui-text>   
-      <btn text="确认" btn-parent-style="{{ btnParentStyle }}" style="margin:15px 0;"></btn>
+      <ui-text class="{{['slide-title','state',{ 'stateNone': parseData.length == 0 }]}}" style="">{{ state }}</ui-text>   
+      <btn text="返回首页" btn-parent-style="{{ btnParentStyle }}" style="margin:45px 0 15px 0;" bindtap="navBack"></btn>
     </ui-row-list>
   </ui-page>
 </template>
@@ -41,8 +23,7 @@
 import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import btn from '#/component/btn'
-let _globalData = ui.getApp().globalData;
-
+let app = ui.getApp();
 export default {
   config: {
     navigationBarTitleText: "undefined"
@@ -56,8 +37,14 @@ export default {
     return {
       title:"解析",
       nextPage:"",
-      btnParentStyle:`margin-top:"30px;"`
+      btnParentStyle:`margin-top:"30px;"`,
+      state:"正在解析字段",
+      parseData:[],
+      qrCode:''
     }
+  },
+  computed:{
+    
   },
   methods: {
     handleChange(){
@@ -72,7 +59,7 @@ export default {
         }
       })
       this.http({
-        url:`${_globalData.http_url.equipments}connect/tttt`,
+        url:`${app.globalData.http_url.equipments}connect/tttt`,
         method:"GET",
         cb:{
           title:'',
@@ -83,18 +70,47 @@ export default {
           console.log( res )
         }
       })
-    }    
+    },
+    getParseData(){
+      let that = this;
+      this.http({
+        url:`${app.globalData.http_url.equipments}datas/${that.qrCode}`,
+        method:"GET",
+        cb:{
+          title:'解析字段成功',
+          icon:"success",
+          show:true,
+        },
+        scb(res){
+          ui.hideLoading()
+          if( res.data.status == 200 ){
+            that.state = "字段解析完毕."
+            ui.showToast({ title: '字段解析完毕', icon: 'success', duration: 1500 });
+            that.parseData = res.data.data;
+          }else{
+            that.state = res.data.message;
+          }
+        }
+      })
+    },
+    navBack(){
+      ui.navigateTo({
+        url:`/pages/home`
+      })    
+    }
   },
   mounted() {
-      let _ii = 0;
-      let inter = setInterval(()=>{
-        _ii ++;
-        if( _ii <= 5 ){
-          this.connectTest();
-        }else{
-          clearInterval( inter )
-        }
-      },5000)
+    let that = this;
+    ui.showLoading({
+      text: '解析字段~ing'
+    })
+    ui.getStorage({
+      key: 'qrCode',
+      success: function (res) {
+        that.qrCode = res.data;
+      }
+    })
+    this.getParseData();
   }
 }
 </script>
@@ -108,6 +124,19 @@ export default {
     .price{
       font-weight: bold;
     }
+  }
+  .state{
+    display: block;
+    width: 100%;
+    font-size:12px;
+    color:rgba(153,153,153,1);
+    padding-left:50px;
+  }
+  .stateNone{
+    padding-left: 0px!important;
+    text-align: center!important;
+    margin:200rpx 0;
+    font-size: 32rpx;
   }
   .ui-row-list > .ui-row:not(:last-child):after{
     display: none;

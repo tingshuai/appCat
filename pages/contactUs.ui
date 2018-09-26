@@ -25,7 +25,34 @@
           <ui-text class="tit1" style="vertical-align:top;">浙江省海宁市马桥街道创智大厦8F</ui-text>
         </ui-view>        
       </ui-col>
-    </ui-row>     
+    </ui-row>
+
+
+
+    <ui-row height="150">
+      <ui-col>
+        <ui-view style="display:block;height:100%;">
+          <ui-image mode="aspectFill" src="./static/img/layer1@3x.png" class="hImg"></ui-image>
+        </ui-view>
+      </ui-col>
+    </ui-row>      
+    <ui-row class="txt">
+      <ui-col>
+        <ui-text class="tit">嘉兴公司（分公司）</ui-text>
+      </ui-col>
+    </ui-row>
+    <ui-row class="txt">
+      <ui-col>
+        <ui-view style="height: 30px;line-height: 30px;" bindtap="calling" data-phone="0573-88888888">
+          <ui-icon type="myWx-phone" size="22"></ui-icon>
+          <ui-text class="tit1" style="">0573-88888888</ui-text>
+        </ui-view>
+        <ui-view style="height: 30px;line-height: 30px;">
+          <ui-icon type="myWx-weizhi" size="22"></ui-icon>
+          <ui-text class="tit1" style="vertical-align:top;">浙江省嘉兴市南湖区创智园</ui-text>
+        </ui-view>        
+      </ui-col>
+    </ui-row>       
   </ui-page>
 </template>
 <script>

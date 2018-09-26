@@ -12,6 +12,8 @@
       </ui-swiper>
     </ui-view>
     <!-- 栏目 -->
+    
+    <!-- <ui-view class="">{{ consoleMe }}</ui-view> -->
     <ui-view class="home-list">
       <ui-row>
         <ui-col align="center" space-left="15">
@@ -34,7 +36,7 @@
           </ui-view>
           <ui-view class="item-text">机器猫简介</ui-view>
         </ui-col>
-        <ui-col align="center" space-right="15" bindtap="toDevelop">
+        <ui-col align="center" space-right="15" bindtap="aboutUs">
           <ui-view class="">
             <ui-image src="./static/img/feirong@2x.png"></ui-image>
           </ui-view>
@@ -83,22 +85,33 @@
         })
       },
       saosao() {
-        let __catMsg = {"qrCode":"04A9120001","moduleNo":"555","productionBatch":"122","phoneNo":"188"};
-        let _qrCode = "04AC120003";
-        ui.getApp().globalData.qrCode = _qrCode;
-        // let _mCatMsg = JSON.stringify( __catMsg );
-        ui.navigateTo({
-          url:`/pages/mcatMsg?qrCode=${ _qrCode }`
-        })
+        // let __catMsg = {"qrCode":"04A9120001","moduleNo":"555","productionBatch":"122","phoneNo":"188"};
+        // let _qrCode = "016718001A";
+        // ui.setStorage({
+        //   key: "qrCode",
+        //   data: _qrCode
+        // })
+        // ui.getApp().globalData.qrCode = _qrCode;
+        // ui.navigateTo({
+        //   url:`/pages/deviceMsg?qrCode=${ _qrCode }`
+        // })
         ui.scanCode({
           success: (res) => {
-            // this.consoleMe = res.result;
-            let __catMsg = res.result;
-            ui.getApp().globalData.mCatMsg = __catMsg;
+            let _qrCode = res.result;
+            ui.getApp().globalData.qrCode = _qrCode;
+            ui.setStorage({
+              key: "qrCode",
+              data: _qrCode
+            })
             ui.navigateTo({
-              url:`/pages/mcatMsg?mCatMsg=${__catMsg}`
+              url:`/pages/deviceMsg?qrCode=${_qrCode}`
             })
           }
+        })
+      },
+      aboutUs(){
+        ui.navigateTo({
+          url:`/pages/aboutUs`
         })
       },
       guide(){

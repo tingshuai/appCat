@@ -105,20 +105,30 @@
           {{ mCatMsg.modelId }}
         </ui-col>
       </ui-row>        
-      <ui-row height="50">
+      <ui-row style="min-height:50px;">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             解析字段
         </ui-col>
-        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
-          {{ mCatMsg.parseField }}
+        <ui-col class="text" vertical-align="middle" align="center">
+                <ui-row height="50" ui:for="{{ mCatMsg.parseField }}" style="width:100%;">
+                  <ui-col span="5" vertical-align="middle" align="left">
+                     {{ item.parameterNameCn }}
+                  </ui-col>
+                  <ui-col span="2" vertical-align="middle" align="center">
+                     ---
+                  </ui-col>
+                  <ui-col span="5" class="text" vertical-align="middle" align="center">
+                    {{ item.parameterNameEn }}
+                  </ui-col>
+                </ui-row>
         </ui-col>
-      </ui-row>                            
+      </ui-row>
     </ui-row-list>
   </ui-page>
 </template>
 <script>
 import navBar from '#/component/navBar'
-let _globalData = ui.getApp().globalData;
+let app = ui.getApp();
 export default {
   config: {
     navigationBarTitleText: "M-CAT信息",
@@ -136,35 +146,35 @@ export default {
         show:true,
         message:"你购买的非本公司产品"
       },
-      resMsg:{}
+      resMsg:{},
+      qrCode:""
     }
   },
   methods: {
-    getDeviceMsg(){
+    getDeviceMsg( __qrCode ){
           let that = this;
           this.http({
-            url:`${_globalData.http_url.equipments}check/${_globalData.mCatMsg.qrCode}`,
+            url:`${app.globalData.http_url.equipments}check/${__qrCode}`,
             method:'GET',
             cb:{
-              title:'',
+              title:'获取设备信息成功',
               icon:"success",
               show:true
             },
             scb(res){
               let _resData = res.data;
-              _globalData.loading = false;
-ui.showPrompt({
-  title: '新建分组',
-  placeholder: '请输入分组名',
-  value: JSON.stringify(res.data),
-  success: (result) => {}
-})
+              app.globalData.loading = false;
               if( _resData.status == 200 ){
+                _resData.data.parseField = JSON.parse( _resData.data.parseField );
                 that.mCatMsg = _resData.data;
-                _globalData.deviceMsg = _resData.data;
+                app.globalData.mCatMsg = _resData.data;
                 that.mCatMsg.show = true;
+                ui.setStorage({
+                  key: "mCatMsg",
+                  data: _resData.data
+                })                  
               }
-              _globalData.loading = false;
+              app.globalData.loading = false;
             },
             fcb(res){
               ui.showToast({ title: res.data, icon: 'none' })
@@ -174,12 +184,20 @@ ui.showPrompt({
   },
   computed:{
     isloading:function(){
-      return _globalData.loading;
+      return app.globalData.loading;
     }
   },
   mounted() {
-    _globalData.loading = true;
-    this.getDeviceMsg();
+    app.globalData.loading = true;
+    let that = this;
+    ui.getStorage({
+      key:'qrCode',
+      success(res){
+        if( res.data != null ){
+          that.getDeviceMsg( res.data );
+        }
+      }
+    })    
   }
 }
 </script>

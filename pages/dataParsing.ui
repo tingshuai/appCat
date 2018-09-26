@@ -29,7 +29,7 @@ import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import popPicker from '#/component/popPicker'
 import btn from '#/component/btn'
-let _globalData = ui.getApp().globalData;
+let app = ui.getApp();
 export default {
   config: {
     navigationBarTitleText: "",
@@ -46,6 +46,7 @@ export default {
       title:"数据解析",
       nextPage:"/pages/analysis",
       disabled:false,
+      mCatMsg:{},
       list:[
         {
           name:"",
@@ -62,12 +63,12 @@ export default {
   },
   computed:{
     isloading:function(){
-      return _globalData.loading;
+      return app.globalData.loading;
     },
   },
   methods: {
     analysis(){
-      _globalData.loading = true;
+      app.globalData.loading = true;
       let _list = this.list.filter((item)=>{
         if( item.name != '' && item.value != ''){
           return item;
@@ -79,10 +80,11 @@ export default {
           icon:'none',
           duration:1500
         })
+        app.globalData.loading = false;
         return;
       }else{
         let _param={
-          equipmentId:_globalData.deviceMsg.id || '',
+          equipmentId:this.mCatMsg.id || '',
           fieldJsonArr:[]
         };
         _list.forEach((val,i,arr)=>{
@@ -90,7 +92,7 @@ export default {
         })
         _param.fieldJsonArr = JSON.stringify(_param.fieldJsonArr);
         this.http({
-          url:`${_globalData.http_url.equipments}/parseField`,
+          url:`${app.globalData.http_url.equipments}/parseField`,
           method:"POST",
           params:_param,
           cb:{
@@ -104,7 +106,7 @@ export default {
               icon:'none',
               duration:1500
             })
-            _globalData.loading = false;
+            app.globalData.loading = false;
           }
         })
         return ;
@@ -112,7 +114,13 @@ export default {
     }
   },
   mounted() {
-    
+    let that = this;
+    ui.getStorage({
+      key: 'mCatMsg',
+      success: function (res) {
+        that.mCatMsg= res.data;
+      }
+    })    
   }
 }
 </script>
@@ -131,5 +139,8 @@ export default {
     .ui-input-inner{
       text-align: center;
     }
+  }
+  .grayBg{
+    height: 100%;;
   }
 </style>

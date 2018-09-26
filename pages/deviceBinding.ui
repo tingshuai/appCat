@@ -1,27 +1,137 @@
 <!--undefined-->
 <template>
-  <ui-page>
+  <ui-page show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list>
-    <text-list data-list="{{ mCatMsgList }}" title="{{ mCatMsg }}"></text-list>
-    <!-- <ui-view style="" class="warn">
-      <ui-icon type="myWx-gantanhao2" size="22" style="color:red;"></ui-icon>
-      <ui-text class="" style="vertical-align: top;display: inline-block;height: 100%;">您尚未购买与设备匹配的该模型</ui-text>
-    </ui-view> -->
-    <!-- <ui-view style="margin-top:10px;">
-      <btn bindontouch="toBy" disabled="{{ disabled }}"  text="购买模型"></btn>
-      <btn bindontouch="contact" disabled="{{ disabled }}" plain="{{ true }}" text="联系客服"></btn>
-    </ui-view> -->
+    <ui-row-list border-indent>
+      <ui-row height="50">
+        <ui-col class="tit" vertical-align="middle" align="left" space-left="10">M-Cat</ui-col>
+      </ui-row>      
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            版本编号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.versionCode }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备型号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.unitType }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备名称
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.equipmentName }}
+        </ui-col>
+      </ui-row>    
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产厂家
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.manufacturer }}
+        </ui-col>
+      </ui-row> 
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产批次
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.productionBatch }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产年月
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.productionDate }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            手机串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.phoneNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模组串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.moduleNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模板ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.templateId }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            采集协议
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.collectionProtocol }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            使用状态
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.state }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模型ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="left" space-right="10">
+          {{ mCatMsg.modelId }}
+        </ui-col>
+      </ui-row>        
+      <ui-row style="min-height:50px;">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            解析字段
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="center">
+                <ui-row height="50" ui:for="{{ mCatMsg.parseField }}" style="width:100%;">
+                  <ui-col span="5" vertical-align="middle" align="left">
+                     {{ item.parameterNameCn }}
+                  </ui-col>
+                  <ui-col span="2" vertical-align="middle" align="center">
+                     ---
+                  </ui-col>
+                  <ui-col span="5" class="text" vertical-align="middle" align="center">
+                    {{ item.parameterNameEn }}
+                  </ui-col>
+                </ui-row>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
   </ui-page>
 </template>
 <script>
 import navBar from '#/component/navBar'
 import textList from '#/component/textList'
 import btn from '#/component/btn'
-let _globalData = ui.getApp().globalData;
+let app = ui.getApp();
 export default {
   config: {
-    navigationBarTitleText: "模型未购买",
+    navigationBarTitleText: "",
     "navigationStyle": "custom"
   },
   components:{
@@ -35,10 +145,10 @@ export default {
       nextPage:"/pages/dataParsing",
       mCatMsg:{},
       listTitle:"设备信息",//
-      mCatMsg:"M-Cat",
+      mCatMsg:{},
       disabled:false,
       dataList:[],//模型信息.....
-      mCatMsgList:[]//机器猫的信息
+      mCatMsgList:[],//机器猫的信息
     }
   },
   methods: {
@@ -49,8 +159,20 @@ export default {
 
     }
   },
+  computed:{
+    isloading:function(){
+      return app.globalData.loading;
+    }
+  },
   mounted() {
+    let that = this;
     let modelMsg = JSON.parse( this.$route.query.modelMsg );
+    ui.getStorage({
+      key: 'mCatMsg',
+      success: function (res) {
+        that.mCatMsg= res.data;
+      }
+    })      
     modelMsg.forEach((val,i,arr)=>{
       this.dataList.push({
         "name":"品牌",
@@ -69,11 +191,7 @@ export default {
         "value":val.spec
       })
     });
-    this.mCatMsgList.push(
-      {name:"模组编号",value:_globalData.mCatMsg.moduleNo},
-      {name:"生产批次",value:_globalData.mCatMsg.productionBatch},
-      {name:"手机号",value:_globalData.mCatMsg.phoneNo},
-    )
+    app.globalData.isloading = false;
   }
 }
 </script>

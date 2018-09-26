@@ -37,17 +37,21 @@ export default {
       nextPage:"",
       dataList:[
         {
-          name:"设备编号",
+          name:"请扫描手机二维码",
           value:"F03333",
-          img:"./static/img/mCat.jpg"
+          img:"./static/img/ScanningQRCodes(1)@3x.png"
         },{
-          name:"设备名称",
+          name:"请根据步骤连接设备",
           value:"内燃机设备",
-          img:"./static/img/mCat.jpg"
+          img:"./static/img/shutterstock_171079511@2x.png"
         },{
-          name:"品牌名称",
+          name:"为你的设备匹配模型",
           value:"飞讯牌",
-          img:"./static/img/mCat.jpg"
+          img:"./static/img/zu5@2x.png"
+        },{
+          name:"测试你的设备",
+          value:"飞讯牌",
+          img:"./static/img/dreamstimemaximum_21714377@2x.png"
         }
       ]
     }
@@ -102,6 +106,7 @@ export default {
       box-shadow:0px 4px 8px 0px rgba(0,0,0,0.15);
       // padding: 20rpx 0;
       height: 240rpx;
+      padding: 0px 0px 15px 10px;
       .ui-col-content{
         height: 240rpx!important;
       }

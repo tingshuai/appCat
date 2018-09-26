@@ -37,7 +37,7 @@ import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import btn from '#/component/btn'
 // import selDate from '#/component/selDate'
-let _globalData = ui.getApp().globalData;
+let app = ui.getApp();
 export default {
   config: {
     navigationBarTitleText: "undefined"
@@ -52,7 +52,6 @@ export default {
       title:"模型检查",
       nextPage:"/pages/deviceBinding",
       showDate:false,
-      isloading:true,
       pop:{
         show:false,
         value:""
@@ -99,7 +98,10 @@ export default {
         })
       })
       return _formList;
-    }
+    },
+    isloading:function(){
+      return app.globalData.loading;
+    }    
   },  
   methods: {
     handleChange(){
@@ -130,9 +132,9 @@ export default {
           this.formList.forEach((val,i,arr)=>{
             _param[val.name] = val.value;
           })
-          _param.userId =  _globalData.userMsg.userId
+          _param.userId =  app.globalData.userMsg.userId
           this.http({
-            url:`${_globalData.http_url.models}check`,
+            url:`${app.globalData.http_url.models}check`,
             params:JSON.stringify(_param),
             cb:{
               title:'',

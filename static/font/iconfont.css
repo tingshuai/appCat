@@ -178,6 +178,8 @@
 
 .icon-myWx-yuyintonghua:before { content: "\e661"; }
 
+.icon-myWx-tuichu:before { content: "\e6ec"; }
+
 .icon-myWx-ic_mic_off_px:before { content: "\e693"; }
 
 .icon-myWx-play2:before { content: "\e6cf"; }
@@ -219,6 +221,8 @@
 .icon-myWx-dianhua-copy:before { content: "\e681"; }
 
 .icon-myWx-tupianshuiyinshezhi:before { content: "\e6bb"; }
+
+.icon-myWx-tuichu1:before { content: "\e68c"; }
 
 .icon-myWx-zhong1:before { content: "\e662"; }
 
@@ -366,11 +370,17 @@
 
 .icon-myWx-cuo4:before { content: "\e66d"; }
 
+.icon-myWx-tuichu2:before { content: "\e6bd"; }
+
 .icon-myWx-gantanhao2:before { content: "\e66e"; }
 
 .icon-myWx-dui3:before { content: "\e672"; }
 
+.icon-myWx-tuichu3:before { content: "\e68d"; }
+
 .icon-myWx-gantanhao4:before { content: "\e676"; }
+
+.icon-myWx-tuichu4:before { content: "\e78f"; }
 
 .icon-myWx-denglu3:before { content: "\e68b"; }
 
