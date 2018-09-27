@@ -3,7 +3,7 @@
   <ui-popup ui:model="{{ show }}" bindhide="hidePop">
       <ui-row>
         <ui-col align="right" space-right="10">
-            <ui-button type="primary" size="mini" style="flot:right;" bindtap="confirm">确定</ui-button>
+            <ui-button type="primary" class="confirm" style="flot:right;" bindtap="confirm">确定</ui-button>
         </ui-col>
       </ui-row>
       <ui-picker-view ui:if="{{ show }}" range="{{ listData }}" value="{{ value }}" bindchange="handleChange"></ui-picker-view>
@@ -18,7 +18,7 @@ export default {
   props:["isShow","listData","index"],
   data() {
     return {
-      value:""
+      value:0
     }
   },
   methods: {
@@ -27,6 +27,7 @@ export default {
     },
     confirm(){
       this.$emit( "returnvalue" , this.value );
+      this.value = 0;
       return this.$emit( "hidepop" );
     },
     hidePop(){
@@ -45,5 +46,9 @@ export default {
 </script>
 
 <style lang="less">
-
+  .confirm{
+    width: 130rpx!important;
+    text-align: center;
+    font-size: 12px;
+  }
 </style>

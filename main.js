@@ -43,7 +43,7 @@ ui.extend({
         obj.token = res.data.accessToken;
       }
     })
-    ui.request({
+    ui.getApp().globalData.httpTask = ui.request({
       url: `${obj.url}`, 
       data: obj.params,
       method:`${obj.method}`,
@@ -65,7 +65,7 @@ ui.extend({
               icon:'none',
               duration:1500
             })           
-          }else{            
+          }else{
             if(obj.cb.show){
               uiTit( obj.cb );
             }
@@ -74,7 +74,7 @@ ui.extend({
       },
       fail(res){
         ui.hideLoading()
-        uiTit( obj.cb );//执行回调
+        ui.showToast({title: `${ res.data.message },请先登录。`,icon:'none',duration:1500})  
       }
     })
   },

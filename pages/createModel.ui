@@ -2,12 +2,131 @@
 <template>
   <ui-page>
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
-    <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list>
+    <!-- <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list> -->
+    <ui-row-list border-indent ui:if="{{ mCatMsg.show }}">
+      <ui-row height="50">
+        <ui-col class="tit" vertical-align="middle" align="left" space-left="10">设备信息</ui-col>
+      </ui-row>  
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            版本编号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.versionCode }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备型号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.unitType }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            设备名称
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.equipmentName }}
+        </ui-col>
+      </ui-row>    
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产厂家
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.manufacturer }}
+        </ui-col>
+      </ui-row> 
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产批次
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.productionBatch }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            生产年月
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.productionDate }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            手机串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.phoneNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模组串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.moduleNo }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模板ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.templateId }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            采集协议
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.collectionProtocol }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            使用状态
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.state }}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模型ID
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.modelId }}
+        </ui-col>
+      </ui-row>        
+      <ui-row style="min-height:50px;">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            解析字段
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="center">
+                <ui-row height="50" ui:for="{{ mCatMsg.parseField }}" style="width:100%;">
+                  <ui-col span="5" vertical-align="middle" align="left">
+                     {{ item.parameterNameCn }}
+                  </ui-col>
+                  <ui-col span="2" vertical-align="middle" align="center">
+                     ---
+                  </ui-col>
+                  <ui-col span="5" class="text" vertical-align="middle" align="center">
+                    {{ item.parameterNameEn }}
+                  </ui-col>
+                </ui-row>
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
     <ui-view style="" class="warn">
       <!-- <ui-icon type="myWx-gantanhao2" size="22" style="color:red;"></ui-icon> -->
       <ui-text class="" style="vertical-align: top;display: inline-block;height: 100%;">请联系客服人员为您定制模型</ui-text>
     </ui-view>
-    <ui-view style="margin-top:10px;">
+    <ui-view style="margin:10px 0;">
       <btn bindontouch="contactService" disabled="{{ disabled }}"  text="联系客服"></btn>
       <!-- <btn bindontouch="contact" disabled="{{ disabled }}" plain="{{ true }}" text="联系客服"></btn> -->
     </ui-view>
@@ -29,7 +148,7 @@ export default {
   },
   data(){
     return {
-      title:"创建模型",
+      title:"模型创建",
       nextPage:"",
       mCatMsg:{},
       listTitle:"设备信息",//
@@ -68,13 +187,19 @@ export default {
 
     },
     contactService(){
-      ui.navigateTo({
-        url:`/pages/contactService`
-      })      
+      ui.makePhoneCall({
+        phoneNumber: '10086'
+      })     
     }
   },
   mounted() {
-    
+      let that = this;
+      ui.getStorage({
+        key: 'mCatMsg',
+        success: function (res) {
+          that.mCatMsg = res.data;
+        }
+      })
   }
 }
 </script>
@@ -89,4 +214,13 @@ export default {
     line-height: 20px;
     margin-top: 40px; 
   }
+  .tit{
+    font-size:20px;
+    font-family:"PingFang-SC-Bold";
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    .ui-col-content{
+      font-weight: bold;
+    }
+  } 
 </style>

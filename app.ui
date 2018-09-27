@@ -70,7 +70,7 @@ export default {
         }
       ]
     },
-    "networkBaseUrl":"http://192.168.1.230:8700"//192.168.0.188:8700
+    "networkBaseUrl":"http://192.168.0.188:8700"//192.168.0.188:8700
   },
   data () {
     return {
@@ -79,6 +79,8 @@ export default {
         userMsg:{},
         mCatMsg:{},
         qrCode:"",
+        modelMsg:"",
+        httpTask:{},
         deviceMsg:{},
         loading:false,
         ...util

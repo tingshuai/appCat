@@ -6,8 +6,8 @@
     <ui-view class="my-swiper my-swiper-og">
       <ui-swiper class="two_swiper" autoplay circular>
         <ui-swiper-item ui:for="{{items}}" ui:for-item="item">
-          <ui-image src="{{ item.src }}"></ui-image>
-          <ui-text class="slide-title">{{ item.title }}</ui-text>
+          <ui-image mode="aspectFit" src="{{ item.src }}"></ui-image>
+          <!-- <ui-text class="slide-title">{{ item.title }}</ui-text> -->
         </ui-swiper-item>
       </ui-swiper>
     </ui-view>
@@ -64,16 +64,16 @@
         consoleMe:{},
         img: require('../images/meinv.jpg'),
         items: [{
-            src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
-            title: '放肆玩乐，轻巧办公'
+            src: './static/img/lALPDgQ9qRWxqjPNAZ7NAmY_614_414.png_620x10000q90g.jpg',
+            title: ''
           },
           {
-            src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
-            title: '高温保护，一路驰骋'
+            src: './static/img/lALPDgQ9qRWxd9rNAZ7NAmY_614_414.png_620x10000q90g.jpg',
+            title: ''
           },
           {
-            src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
-            title: '七夕好货，独家礼赠'
+            src: './static/img/lALPDgQ9qRWvMGzNAZ7NAmY_614_414.png_620x10000q90g.jpg',
+            title: ''
           }
         ],
       }
@@ -168,6 +168,7 @@
   .my-swiper {
     margin-top: 0rpx;
     .two_swiper {
+      height: 400rpx;
       .ui-swiper-indicator {
         bottom: 20px;
       }

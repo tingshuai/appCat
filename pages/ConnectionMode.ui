@@ -1,6 +1,6 @@
 <!--undefined-->
 <template>
-  <ui-page class="grayBg">
+  <ui-page class="grayBg" show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
     <ui-view>
       <ui-row-list border-indent class="whiteBg">
@@ -59,7 +59,8 @@ import navBar from '#/component/navBar'
 import formList from '#/component/formList'
 import popPicker from '#/component/popPicker'
 import btn from '#/component/btn'
-let _globalData = ui.getApp().globalData;
+let app = ui.getApp();
+let _inter;
 export default {
   config: {
     navigationBarTitleText: "undefined",
@@ -74,7 +75,7 @@ export default {
   data() {
     return {
       title:"接线方式",
-      nextPage:"/pages/analysis",
+      nextPage:"",
       listData:[],//单选项
       isShow:false,//是否出现弹框
       currentItem:"",//当前项索引...
@@ -106,6 +107,11 @@ export default {
       }
     }
   },
+  computed:{
+    isloading:function(){
+      return app.globalData.loading;
+    }
+  },  
   methods: {
     handleChange(e){
       this.currentItem = e;
@@ -128,20 +134,24 @@ export default {
       this.form[`${this.currentItem}`].value = this.listData[data];
       this.form[`${this.currentItem}`].index = data;
       if( this.currentItem == "brand" ){
+        this.form.displays.index = 0;
+        this.form.versions.index = 0;
         this.getVersions();
       }else if( this.currentItem == "versions" ){
+        this.form.displays.index = 0;
         this.getLine()
       }else if( this.currentItem == "displays"){
-
+        // this.getLine()
       }
     },
     hidePop(data){
       this.isShow = false;
     },
-    getVersions(){
+    getVersions(){//获取型号......
+      app.globalData.loading = true;
       let that = this;
       this.http({
-        url:`${_globalData.http_url.displays}versions`,
+        url:`${app.globalData.http_url.displays}versions`,
         method:"GET",
         params:{"brand":that.form.brand.value},
         cb:{
@@ -150,6 +160,7 @@ export default {
           show:false,
         },
         scb(res){
+          app.globalData.loading = false;
           if( res.data.status == 200 && res.data.data.length != 0 ){
             that.listData=[];
             res.data.data.filter((val)=>{
@@ -160,13 +171,15 @@ export default {
             that.form.versions.value = that.form.versions.list[0];
             that.getLine()
           }
-        }
+        },
+        fcb(res){}
       })
     },
-    getLine(){
+    getLine(){//获取连线方式......
+      app.globalData.loading = true;
       let that = this;
       this.http({
-        url:`${_globalData.http_url.displays}lines/${that.form.versions.originArray[that.form.versions.index].id}`,
+        url:`${app.globalData.http_url.displays}lines/${that.form.versions.originArray[that.form.versions.index].id}`,
         method:"GET",
         cb:{
           title:'',
@@ -174,6 +187,7 @@ export default {
           show:false,
         },
         scb(res){
+          app.globalData.loading = false;
           if( res.data.status == 200 && res.data.data.length != 0 ){
             that.listData=[];
             res.data.data.filter((val)=>{
@@ -183,13 +197,15 @@ export default {
             that.form.displays.originArray = res.data.data;
             that.form.displays.value = that.form.displays.list[0];
           }
-        }
+        },
+        fcb(res){}
       })
     },
-    getBrand(){
+    getBrand(){//获取品牌....
+      app.globalData.loading = true;
       let that = this;
       this.http({
-        url:`${_globalData.http_url.displays}brands`,
+        url:`${app.globalData.http_url.displays}brands`,
         method:"GET",
         cb:{
           title:'',
@@ -197,6 +213,7 @@ export default {
           show:false,
         },
         scb(res){
+          app.globalData.loading = false;
           if( res.data.status == 200 ){
             res.data.data.filter((val)=>{
               that.listData.push(val.brand)
@@ -210,17 +227,19 @@ export default {
       })        
     },
     connect(){
+      app.globalData.loading = true;
       let _ii = 0;
-      let inter = setInterval(()=>{
+      _inter = setInterval(()=>{
         _ii ++;
         if( _ii <= 5 ){
           this.connectTest();
         }else{
-          clearInterval( inter )
+          clearInterval( _inter )
         }
       },5000)
     },
     connectTest(){
+      app.globalData.loading = true;
       let _qrCode = "";
       ui.getStorage({
         key: 'qrCode',
@@ -228,16 +247,22 @@ export default {
           _qrCode = res.data;
         }
       })
+      let _param = {
+        "qrCode":_qrCode,
+        "displayId":this.form.displays.originArray[this.form.displays.index].id
+      }
       this.http({
-        url:`${_globalData.http_url.equipments}connect/tttt`,
-        method:"GET",
+        url:`${app.globalData.http_url.equipments}connect`,
+        params:JSON.stringify(_param),
         cb:{
-          title:'',
+          title:'连接成功',
           icon:"success",
-          show:false,
+          show:true,
         },
         scb(res){
           if( res.data.status == 200 ){
+            clearInterval( _inter )
+            app.globalData.loading = false;
             ui.navigateTo({
               url:`/pages/createModel`
             })
@@ -248,6 +273,18 @@ export default {
   },
   mounted() {
     this.getBrand();
+  },
+  beforeDestroy(){
+      // ui.getStorage({
+      //   key: 'mCatMsg',
+      //   success: function (res) {
+      //     if( res.data == ''){
+      //       ui.redirectTo({
+      //         url: '/pages/home'
+      //       })
+      //     }
+      //   }
+      // })
   }
 }
 </script>
@@ -264,5 +301,8 @@ export default {
   }
   .myBtn{
     margin-top: 60rpx;
+  }
+  .grayBg{
+    height: 100%;
   }
 </style>

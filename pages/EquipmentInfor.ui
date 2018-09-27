@@ -108,7 +108,7 @@ export default {
 
     },
     nextStep(){
-      this.isloading = true;
+      app.globalData.loading = true;
       this.submit();
       return;
     },
@@ -123,6 +123,7 @@ export default {
       debugger;
     },
     submit(){
+        app.globalData.loading = true;
         let that = this;
         let formVali = this.formValidate( that.rules ).filter((val)=>{
           return val.isRight == false;
@@ -148,17 +149,27 @@ export default {
                     icon:'none',
                     duration:1500
                   })
+                  setTimeout(()=>{
+                    ui.navigateTo({
+                      url:`/pages/ConnectionMode`
+                    })
+                  },1500)
               }else{
                 ui.navigateTo({
                   url:`${that.nextPage}?modelMsg=${JSON.stringify(res.data.data)}`
                 })
+                ui.setStorage({
+                  key: "modelMsg",
+                  data: res.data.data[0]
+                })
               }
-              this.isloading = false;
+              app.globalData.loading = false;
             },
             fcb(res){
             }
           })
         }else{
+          app.globalData.loading = false;
           ui.showToast({ 
             title: `${formVali[0].tip}`,
             icon:"none",
@@ -169,7 +180,7 @@ export default {
   },
   mounted() {
     this.rules;
-    this.isloading = false;
+    app.globalData.loading = false;
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <!--undefined-->
 <template>
   <ui-page show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
-    <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
+    <nav-bar title="{{ title }}" next-page="{{ nextPage }}" event="{{ true }}" bindevent="nextStep"></nav-bar>
     <text-list data-list="{{ dataList }}" title="{{ listTitle }}"></text-list>
     <ui-row-list border-indent>
       <ui-row height="50">
@@ -143,9 +143,10 @@ export default {
     return {
       title:"设备绑定",
       nextPage:"/pages/dataParsing",
+      listTitle:"模型信息",//
       mCatMsg:{},
-      listTitle:"设备信息",//
-      mCatMsg:{},
+      qrCode:"",
+      modelMsg:{},
       disabled:false,
       dataList:[],//模型信息.....
       mCatMsgList:[],//机器猫的信息
@@ -172,7 +173,19 @@ export default {
       success: function (res) {
         that.mCatMsg= res.data;
       }
-    })      
+    })
+    ui.getStorage({
+      key: 'modelMsg',
+      success: function (res) {
+        that.modelMsg= res.data;
+      }
+    })
+    ui.getStorage({
+      key: 'qrCode',
+      success: function (res) {
+        that.qrCode= res.data;
+      }
+    })    
     modelMsg.forEach((val,i,arr)=>{
       this.dataList.push({
         "name":"品牌",
@@ -192,6 +205,37 @@ export default {
       })
     });
     app.globalData.isloading = false;
+  },
+  methods:{
+    nextStep(){
+          let that = this;
+          app.globalData.loading = true;
+          let _param = {
+              "modelId":this.modelMsg.modelId,
+              "qrCode":this.qrCode
+          }
+          this.http({
+            url:`${app.globalData.http_url.equipments}binding`,
+            params:JSON.stringify(_param),
+            cb:{
+              title:'绑定成功',
+              icon:"success",
+              show:true
+            },
+            scb(res){
+              if( res.data.status == 200 ){//没有查到
+                setTimeout(()=>{
+                  ui.navigateTo({
+                    url:that.nextPage
+                  })
+                },1500)
+              }
+              app.globalData.loading = false;
+            },
+            fcb(res){
+            }
+          })      
+    }
   }
 }
 </script>

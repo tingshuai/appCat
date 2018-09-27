@@ -2,7 +2,11 @@
 <template>
   <ui-page show-loading="{{ isloading }}" auto-hide-loading="{{false}}">
     <nav-bar title="{{ title }}" next-page="{{ nextPage }}"></nav-bar>
-    <ui-text class="" style="vertical-align: top;display:block;height: 100%;text-align:center;margin:150px 0;" ui:if="{{ !mCatMsg.show }}">{{ mCatMsg.message }}</ui-text>
+    <ui-view class="tit1" ui:if="{{ !mCatMsg.show }}">
+      <ui-image mode="aspectFit" src="./static/img/undraw_alert_mc7b@3x.png"></ui-image>
+      <ui-text class="" style="vertical-align: top;display:block;text-align:center;margin:20px 0 0 0;">{{ mCatMsg.message }}</ui-text>
+      <ui-text class="" style="font-size:12px;display:block;text-align:center;color:rgba(153,153,153,1);">联系客服 0573-87001179</ui-text>
+    </ui-view>
     <!-- <ui-row height="200" ui:if="{{ !mCatMsg.show }}">
       <ui-col align="center" vertical-align="middle">
         <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
@@ -140,11 +144,11 @@ export default {
   data(){
     return {
       title:"设备信息",
-      nextPage:"/pages/EquipmentInfor",
+      nextPage:"",
       // nextPage:"/pages/goToBy",
       mCatMsg:{
-        show:true,
-        message:"你购买的非本公司产品"
+        show:false,
+        message:""
       },
       resMsg:{},
       qrCode:""
@@ -159,7 +163,7 @@ export default {
             cb:{
               title:'获取设备信息成功',
               icon:"success",
-              show:true
+              show:false
             },
             scb(res){
               let _resData = res.data;
@@ -169,10 +173,27 @@ export default {
                 that.mCatMsg = _resData.data;
                 app.globalData.mCatMsg = _resData.data;
                 that.mCatMsg.show = true;
+                that.nextPage = "/pages/EquipmentInfor";
                 ui.setStorage({
                   key: "mCatMsg",
                   data: _resData.data
-                })                  
+                })
+                ui.showToast({title: "获取设备信息成功",icon:'none',duration:1500})
+              }else if( _resData.status == 500 ){
+                ui.showToast({ title: _resData.message, icon: 'none'});
+                that.mCatMsg.show = false;
+                that.mCatMsg.message = _resData.message;
+                ui.setStorage({
+                  key: "mCatMsg",
+                  data: ""
+                })
+              }else if( _resData.status == 201 ){
+                ui.showToast({title: "该设备已绑定",icon:'success',duration:1500});
+                setTimeout(()=>{
+                  ui.navigateTo({
+                    url:`/pages/analysis`
+                  })
+                },1500)
               }
               app.globalData.loading = false;
             },
@@ -197,7 +218,10 @@ export default {
           that.getDeviceMsg( res.data );
         }
       }
-    })    
+    })
+  },
+  beforeDestroy(){
+    app.globalData.httpTask.abort();
   }
 }
 </script>
@@ -205,5 +229,10 @@ export default {
 <style lang="less">
   .hImg{
     // height: 100%;
+  }
+  .tit1{
+    width: 80%;
+    display: block;
+    margin: 80px auto;
   }
 </style>
