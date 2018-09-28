@@ -5,18 +5,18 @@
     <ui-view class="bg_blue"></ui-view>
     <ui-view class="box">
       <ui-row class="mineMsg" space-top="15">
-        <ui-col width="80" vertical-align="middle" align="center">
+        <!-- <ui-col width="80" vertical-align="middle" align="center">
           <ui-image mode="aspectFit" src="./static/img/mCat.jpg" class="hImg"></ui-image>
-        </ui-col>
+        </ui-col> -->
         <ui-col vertical-align="middle" align="left">
           <ui-view>
-            <ui-text style="" class="name">{{ userMsg.username || '***'}}</ui-text>
-            <ui-text style="">{{ userMsg.position || '***' }}</ui-text>
+            <ui-text style="" class="name">{{ userMsg.username || '未登录'}}</ui-text>
+            <ui-text style="">{{ userMsg.position || '' }}</ui-text>
           </ui-view>
-          <ui-view>{{ userMsg.phone || '***' }}</ui-view>
+          <ui-view>{{ userMsg.phone || '登录才能体验所有功能哦~' }}</ui-view>
         </ui-col>
       </ui-row>
-      <ui-view class="company">{{ userMsg.company || '***'}}</ui-view>
+      <ui-view class="company">{{ userMsg.company || ''}}</ui-view>
     </ui-view>
     <picker-list data-list="{{ dataList }}" bindmy-event="myEvent"></picker-list>
   </ui-page>

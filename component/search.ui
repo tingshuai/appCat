@@ -3,11 +3,12 @@
     <ui-row height="50" border-indent class="search">
       <ui-col vertical-align="middle" align="center" class="searchMe">
         <ui-image mode="aspectFit" src="./static/img/search@2x.png" class="Magnifier"></ui-image>        
-        <ui-input show-clear="false" placeholder="搜索" ui:model="{{ searchValue }}"></ui-input>
-        <ui-icon type="myWx-huatongyinliang0" class="microphone" size="22"></ui-icon>
+        <ui-input show-clear="false" placeholder="搜索" ui:model="{{ searchValue }}" bindinput="inputIng"></ui-input>
+        <ui-icon ui:show="{{ searchValue != '' }}" type="myWx-cuo1" class="microphone" bindtap="clear" size="22"></ui-icon>
       </ui-col>
       <ui-col width="50" class="text" vertical-align="middle" align="center">
-        <ui-text class="tit" bindtap="clear">取消</ui-text>
+        <!-- <ui-text ui:show="{{ searchValue == '' }}" class="tit" bindtap="clear">取消</ui-text> -->
+        <ui-text class="tit" bindtap="toSearch">搜索</ui-text>
       </ui-col>
     </ui-row>
 </template>
@@ -25,7 +26,13 @@ export default {
   methods: {
       clear(){
         this.searchValue = ""
-      }    
+      },
+      inputIng(e){
+        
+      },
+      toSearch(){
+        this.$emit("search",this.searchValue)
+      }
   },
   mounted() {}
 }
@@ -40,6 +47,7 @@ export default {
       position: absolute;
       right: 10rpx;
       top:20rpx;
+      font-size: 38rpx!important;
     }
     .Magnifier{
       position: absolute;

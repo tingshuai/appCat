@@ -1,7 +1,7 @@
 <template>
   <ui-page top="0">
     <!-- 搜索框 -->
-    <search></search>
+    <search bindsearch="search"></search>
     <!-- 轮播 -->
     <ui-view class="my-swiper my-swiper-og">
       <ui-swiper class="two_swiper" autoplay circular>
@@ -79,6 +79,13 @@
       }
     },
     methods: {
+      search(val){
+        ui.showToast({ 
+          title: "该功能正在开发~ing",
+          icon:'none',
+          duration:1500
+        })
+      },
       login() {
         ui.navigateTo({
           url: '/pages/login'
@@ -86,7 +93,7 @@
       },
       saosao() {
         // let __catMsg = {"qrCode":"04A9120001","moduleNo":"555","productionBatch":"122","phoneNo":"188"};
-        // let _qrCode = "016718001A";
+        // let _qrCode = "0aa8110001";
         // ui.setStorage({
         //   key: "qrCode",
         //   data: _qrCode

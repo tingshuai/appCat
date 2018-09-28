@@ -2,13 +2,12 @@
 <template>
   <ui-page top="0">
     <!-- 搜索框 -->
-    <search></search>
+    <search bindsearch="search"></search>
     <!-- 热门搜索列表 -->
     <ui-text class="tit0">热门搜索</ui-text>
     <ui-view class="hartWord">
       <ui-button class="{{['btnLebal',{ 'act': hartWord._index == index }]}}" full-width="{{ false }}" size="mini" ui:for="{{ hartWord.list }}" data-index="{{ index }}" bindtap="selHartWord" plain="{{ true }}">{{ item }}</ui-button>
     </ui-view>
-
     <ui-row height="30">
       <ui-col vertical-align="middle" align="left" class="searchMe">
           <ui-text class="tit0" style="">历史记录</ui-text>
@@ -99,6 +98,13 @@
       },
       clear(){
         this.searchValue = ""
+      },
+      search(val){
+        ui.showToast({ 
+          title: "该功能正在开发~ing",
+          icon:'none',
+          duration:1500
+        })
       }
     }
   }
