@@ -1,6 +1,6 @@
 <!--page.ui-->
 <template>
-  <ui-page>
+  <ui-page page-load="{{ pageLoad }}">
     <nav-bar pre-page="{{ false }}" title="{{ title }}" next-page="{{ nextPage }}" style="background-color:#FF863F;"></nav-bar>
     <ui-view class="bg_blue"></ui-view>
     <ui-view class="box">
@@ -43,14 +43,13 @@
         pageLoad:{
           trigger:'always',
           handle:()=>{
-            let getData=ui.getQuery()
-            this.getUserMsg();            
+            let getData = ui.getQuery()
+            this.getUserMsg();
           }
         }
       }
     },
     mounted(){
-
     },
     computed:{
       dataList:function(){

@@ -80,7 +80,7 @@
     },
     methods: {
       search(val){
-        ui.showToast({ 
+        ui.showToast({
           title: "该功能正在开发~ing",
           icon:'none',
           duration:1500
@@ -93,7 +93,7 @@
       },
       saosao() {
         // let __catMsg = {"qrCode":"04A9120001","moduleNo":"555","productionBatch":"122","phoneNo":"188"};
-        // let _qrCode = "0aa8110001";
+        // let _qrCode = "016718001E";
         // ui.setStorage({
         //   key: "qrCode",
         //   data: _qrCode
@@ -113,6 +113,9 @@
             ui.navigateTo({
               url:`/pages/deviceMsg?qrCode=${_qrCode}`
             })
+          },
+          fail:(res)=>{
+            ui.showToast({title: '未识别,请重新选择。',icon:"none",duration:1500});
           }
         })
       },

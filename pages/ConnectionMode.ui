@@ -46,12 +46,14 @@
           </ui-col>
         </ui-row>
         <ui-row height="200">
-            <ui-image mode="aspectFit" src="{{`${form.displays.originArray[form.displays.index].linePict}`|| ''}}"></ui-image>
+            <ui-image mode="aspectFit" src="{{`${form.displays.originArray[form.displays.index].linePict}`|| ''}}"  data-preview-src="{{ `${form.displays.originArray[form.displays.index].linePict}`|| '' }}" data-preview-group="1"></ui-image>
         </ui-row>
       </ui-row-list>
     </ui-view>
     <btn bindontouch="connect" disabled="{{ disabled }}" text="连接测试" class="myBtn"></btn>
     <pop-picker list-data="{{ listData }}" index="{{ index }}" bindreturnvalue="returnValue" is-show="{{ isShow }}" bindhidepop="hidePop"></pop-picker>
+    <ui-mask ui:model="{{ isloading }}" custom-style="{{ customStyle1 }}" hide-on-tap="{{ false }}"></ui-mask>    
+    <ui-previewer bindopen="handleopen" bindclose="handleclose" bindchange="handlechange"></ui-previewer>
   </ui-page>
 </template>
 <script>
@@ -81,6 +83,9 @@ export default {
       currentItem:"",//当前项索引...
       disabled:false,
       index:0,
+      customStyle1:{
+        'background-color':'rgba(255, 255, 255, 0.8)',
+      },
       form:{
         brand:{
           lebal:"品牌",
@@ -113,6 +118,15 @@ export default {
     }
   },  
   methods: {
+    handleopen (e) {
+      
+    },
+    handleclose () {
+      
+    },
+    handlechange (e) {
+      
+    },    
     handleChange(e){
       this.currentItem = e;
       this.isShow = true;
@@ -227,19 +241,22 @@ export default {
       })        
     },
     connect(){
-      app.globalData.loading = true;
+      this.disabled = true;
       let _ii = 0;
       _inter = setInterval(()=>{
         _ii ++;
         if( _ii <= 5 ){
-          this.connectTest();
+          this.connectTest(_ii);
         }else{
-          clearInterval( _inter )
+          clearInterval( _inter );
+          this.disabled = false;
         }
       },5000)
     },
-    connectTest(){
-      app.globalData.loading = true;
+    connectTest(_ii){
+      ui.showLoading({
+        text: `第${_ii}次查询~ing`
+      })
       let _qrCode = "";
       ui.getStorage({
         key: 'qrCode',
@@ -262,7 +279,7 @@ export default {
         scb(res){
           if( res.data.status == 200 ){
             clearInterval( _inter )
-            app.globalData.loading = false;
+            ui.hideLoading();
             ui.navigateTo({
               url:`/pages/createModel`
             })

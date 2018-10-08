@@ -38,8 +38,8 @@
     },
     data() {
       return {
-        phone: '13500000000',
-        password: '123456',
+        phone: '',
+        password: '',
       }
     },
     computed:{
@@ -97,9 +97,7 @@
                   key: "userMsg",
                   data: res.data.data
                 })
-                ui.redirectTo({
-                  url: '/pages/my'
-                })
+                ui.navigateBack();
               }
             }
           })

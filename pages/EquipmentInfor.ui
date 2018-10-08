@@ -9,7 +9,7 @@
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="right" space-right="10">
           <ui-view class="">
-            <ui-input placeholder="" ui:model="{{ item.value }}" type="text" style="border:none;text-align:right;"></ui-input>
+            <ui-input class="myInput" placeholder="" ui:model="{{ item.value }}" type="text" style="border:none;text-align:right;"></ui-input>
           </ui-view>
         </ui-col>
       </ui-row>
@@ -40,7 +40,7 @@ import btn from '#/component/btn'
 let app = ui.getApp();
 export default {
   config: {
-    navigationBarTitleText: "undefined"
+    navigationBarTitleText: ""
   },
   components:{
     navBar,
@@ -60,25 +60,25 @@ export default {
         {
           lebal:"品牌",
           name:"manufactory",
-          value:"华发",
+          value:"华发",//华发
           type:"input"
         },
         {
           lebal:"模型名称",
           name:"modelName",
-          value:"/经编机/卡尔迈耶/TM3",
+          value:"/经编机/卡尔迈耶/TM3",///经编机/卡尔迈耶/TM3
           type:"input"
         },
         {
           lebal:"出厂日期",
           name:"produceDate",
-          value:`2018-09-19`,
+          value:`2018-09-18T16:00:00.000Z`,//2018-09-19
           type:"date",
         },
         {
           lebal:"型号",
           name:"spec",
-          value:"规格1",
+          value:"规格1",//规格1
           type:"input",
         }
       ]
@@ -101,7 +101,7 @@ export default {
     },
     isloading:function(){
       return app.globalData.loading;
-    }    
+    }
   },  
   methods: {
     handleChange(){
@@ -116,11 +116,11 @@ export default {
       this.pop.show = true;
     },
     selectedChange (e) {
-      this.formList[2].value = e;
+      this.formList[2].value = e.replace(/\//g, "-");
       this.pop.show = false;
     },   
     cDate(e,date){
-      debugger;
+      // debugger;
     },
     submit(){
         app.globalData.loading = true;
@@ -188,5 +188,10 @@ export default {
 <style lang="less">
   .ui-input-inner{
     text-align: right;
+  }
+  .myInput{
+    >input{
+      padding-right:15px;
+    }
   }
 </style>

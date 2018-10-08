@@ -59,6 +59,8 @@ ui.extend({
                 duration:1000
               })
             }
+            ui.getApp().globalData.loading = false;
+            ui.hideLoading();
           }else if(res.data.status == 401){
             ui.showToast({
               title: `${res.data.message},请先登录。`,

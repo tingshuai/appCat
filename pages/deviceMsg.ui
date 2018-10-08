@@ -42,7 +42,7 @@
             生产年月
         </ui-col>
         <ui-col class="text" vertical-align="middle" align="right" space-right="10">
-          {{ mCatMsg.year }}年{{ mCatMsg.month }}月
+          {{ mCatMsg.year }}{{ mCatMsg.year ? "年" : ""}}{{ mCatMsg.month }}{{ mCatMsg.month ? "月" : ""}}
         </ui-col>
       </ui-row> 
       <ui-row height="50">
@@ -68,7 +68,15 @@
         <ui-col class="text" vertical-align="middle" align="right" space-right="10">
           {{ mCatMsg.phoneNo }}
         </ui-col>
-      </ui-row>    
+      </ui-row>
+      <ui-row height="50">
+        <ui-col width="110" vertical-align="middle" align="left" space-left="10">
+            模组串号
+        </ui-col>
+        <ui-col class="text" vertical-align="middle" align="right" space-right="10">
+          {{ mCatMsg.moduleNo }}
+        </ui-col>
+      </ui-row>
       <ui-row style="min-height:50px;">
         <ui-col width="110" vertical-align="middle" align="left" space-left="10">
             解析字段
@@ -149,9 +157,14 @@ export default {
                 })
               }else if( _resData.status == 201 ){
                 ui.showToast({title: "该设备已绑定",icon:'success',duration:1500});
+                _resData.data.parseField = JSON.parse( _resData.data.parseField );
+                ui.setStorage({
+                  key: "mCatMsg",
+                  data: _resData.data
+                })
                 setTimeout(()=>{
                   ui.navigateTo({
-                    url:`/pages/analysis`
+                    url:`/pages/dataParsing`
                   })
                 },1500)
               }
@@ -175,6 +188,7 @@ export default {
       key:'qrCode',
       success(res){
         if( res.data != null ){
+          that.qrCode = res.data;
           that.getDeviceMsg( res.data );
         }
       }

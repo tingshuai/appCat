@@ -90,7 +90,7 @@ export default {
         _list.forEach((val,i,arr)=>{
           _param.fieldJsonArr.push({'parameterNameCn':val.name,'parameterNameEn':val.value})
         })
-        _param.fieldJsonArr = JSON.stringify(_param.fieldJsonArr);
+        _param.fieldJsonArr = JSON.stringify( _param.fieldJsonArr );
         this.http({
           url:`${app.globalData.http_url.equipments}/parseField`,
           method:"POST",
@@ -101,7 +101,7 @@ export default {
             show:false,
           },
           scb(res){
-            ui.showToast({ 
+            ui.showToast({
               title: res.data.message,
               icon:'none',
               duration:1500
@@ -118,7 +118,13 @@ export default {
     ui.getStorage({
       key: 'mCatMsg',
       success: function (res) {
-        that.mCatMsg= res.data;
+        that.mCatMsg = res.data;
+        if( res.data.parseField.length != 0 ){
+          res.data.parseField.forEach((val,i,arr)=>{
+            that.list[i].name = val.parameterNameCn;
+            that.list[i].value = val.parameterNameEn;
+          })
+        }
       }
     })    
   }
